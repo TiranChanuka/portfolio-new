@@ -1,0 +1,19 @@
+<svg width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="250" fill="url(#gradient4)"/>
+  <defs>
+    <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fa709a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fee140;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect x="50" y="50" width="300" height="150" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="2" rx="8"/>
+  <rect x="70" y="70" width="260" height="15" fill="rgba(255,255,255,0.3)" rx="4"/>
+  <rect x="70" y="95" width="120" height="6" fill="rgba(255,255,255,0.4)" rx="3"/>
+  <rect x="70" y="110" width="80" height="6" fill="rgba(255,255,255,0.4)" rx="3"/>
+  <rect x="70" y="125" width="100" height="6" fill="rgba(255,255,255,0.4)" rx="3"/>
+  <rect x="70" y="150" width="260" height="40" fill="rgba(255,255,255,0.1)" rx="4"/>
+  <rect x="80" y="160" width="60" height="20" fill="rgba(255,255,255,0.2)" rx="2"/>
+  <rect x="150" y="160" width="60" height="20" fill="rgba(255,255,255,0.2)" rx="2"/>
+  <rect x="220" y="160" width="60" height="20" fill="rgba(255,255,255,0.2)" rx="2"/>
+  <text x="200" y="220" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="Arial, sans-serif" font-size="16" font-weight="600">Learning Platform</text>
+</svg>
