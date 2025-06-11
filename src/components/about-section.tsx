@@ -6,11 +6,11 @@ import { Briefcase, GraduationCap, Award } from "lucide-react";
 // This will be replaced with data from the admin panel
 const experienceData = [
   {
-    title: "Associate Software Engineer",
+    title: "Junior Software Engineer",
     company: "Infoxty Technologies",
     period: "2024 (Dec) - Present",
     description:
-      "Currently working as an Associate Software Engineer, focusing on frontend development using React, Next js and also Wordpress. Involved in building scalable web applications and optimizing performance.",
+      "Currently working as an Junior Software Engineer, focusing on frontend development using React, Next js and also Wordpress. Involved in building scalable web applications and optimizing performance.",
   },
   {
     title: "Software Engineer Intern",
@@ -68,14 +68,26 @@ const educationData = [
 
 const certificationData = [
   {
-    name: "Full Stack Web Development",
+    name: "The Complete ReactJs Course - Basics to Advanced [2023]",
     issuer: "Udemy",
-    year: "2020",
+    year: "2024",
   },
   {
-    name: "Advanced React Patterns",
-    issuer: "Frontend Masters",
-    year: "2021",
+    name: "Make a WordPress Website with Elementor",
+    issuer: "Udemy",
+    year: "2025",
+  },
+  {
+    name: "Front-End Web Development",
+    issuer:
+      "Center for Open & Distance Learning (CODL) University of Moratuwa, Sri Lanka",
+    year: "2022",
+  },
+  {
+    name: "Web Design for Beginners",
+    issuer:
+      "Center for Open & Distance Learning (CODL) University of Moratuwa, Sri Lanka",
+    year: "2022",
   },
   {
     name: "WordPress Theme & Plugin Development",

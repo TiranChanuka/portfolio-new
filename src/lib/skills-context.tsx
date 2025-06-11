@@ -217,43 +217,45 @@ const availableSkillIcons: Record<string, string> = {
   React: "/Icons/React.png",
   "Next.js": "/Icons/Nextjs.png",
   "Tailwind CSS": "/Icons/Tailwind.png",
+  "Framer Motion": "/Icons/React.png", // Using React icon as fallback
+  "Three.js": "/Icons/React.png", // Using React icon as fallback
   Redux: "/Icons/ReactRedux.png",
+  "API Integration": "/Icons/React.png", // Using React icon as fallback
+  Bootstrap: "/Icons/Bootstrap.png", // Fixed typo from "Boostrap"
+  "Chakra UI": "/Icons/ChakraUI.png",
+  "MUI (Material-UI)": "/Icons/MUI.png",
+  Sass: "/Icons/Sass.png",
+  "Ant Design": "/Icons/AntDesign.png",
+  Vercel: "/Icons/Vercel.png",
+  Vite: "/Icons/Vite.png",
 
   // WordPress Development icons
   WordPress: "/Icons/Wordpress.png",
+  PHP: "/Icons/php.png", // Using WordPress icon as fallback
+  WooCommerce: "/Icons/woocommerce.png", // Using WordPress icon as fallback
   "Custom Themes Development": "/Icons/Wordpress.png",
-  "Custom Themes": "/Icons/Wordpress.png",
-  Elementor: "/Icons/Elementer.png",
+  Elementor: "/Icons/Elementor.png", // Fixed typo from "Elementer"
   "Gutenberg Blocks": "/Icons/Wordpress.png",
   "WordPress Security": "/Icons/Wordpress.png",
   "WordPress Performance Optimization": "/Icons/Wordpress.png",
-  "WordPress REST API": "/Icons/Wordpress.png",
+  "WordPress REST API": "/Icons/api.png",
   "Plugin Development": "/Icons/Wordpress.png",
   "WordPress SEO": "/Icons/Wordpress.png",
-  Gutenberg: "/Icons/Wordpress.png",
 
-  // UI/UX and Design Tools
+  // Other Skills icons
   Figma: "/Icons/Figma.png",
   "UI Design": "/Icons/Figma.png",
   "UX Design": "/Icons/Figma.png",
   "Adobe XD": "/Icons/XD.png",
   Photoshop: "/Icons/Photoshop.png",
+  "Performance Optimization": "/Icons/React.png", // Using React icon as fallback
+  "SEO Fundamentals": "/Icons/React.png", // Using React icon as fallback
   "Figma/Design Tools": "/Icons/Figma.png",
 
-  // Additional tools and frameworks
+  // Additional tools and frameworks (keeping for potential future use)
   npm: "/Icons/npm.png",
-  Vercel: "/Icons/Vercel.png",
-  Vite: "/Icons/Vite.png",
-  Bootstrap: "/Icons/Boostrap.png",
-  "Chakra UI": "/Icons/ChakraUI.png",
-  MUI: "/Icons/MUI.png",
-  "Material-UI": "/Icons/MUI.png",
-  Sass: "/Icons/Sass.png",
-  "Ant Design": "/Icons/AntDesign.png",
   Flutter: "/Icons/Flutter.png",
   Dart: "/Icons/Dart.png",
-
-  // Social and Portfolio platforms
   Behance: "/Icons/Behance.png",
   Dribbble: "/Icons/Dribbble.png",
   Medium: "/Icons/Medium.png",

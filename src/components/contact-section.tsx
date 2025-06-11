@@ -14,7 +14,7 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { FloatingShapes } from "./FloatingElements";
+import { StarryBackground } from "./StarryBackground";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
@@ -40,8 +40,8 @@ const contactInfo = {
       url: "https://www.linkedin.com/in/tiranchanuka/",
       icon: Linkedin,
     },
-    { name: "GitHub", url: "https://github.com/yourusername", icon: Github },
-    { name: "Twitter", url: "https://twitter.com/yourusername", icon: Twitter },
+    { name: "GitHub", url: "https://github.com/TiranChanuka", icon: Github },
+    { name: "Twitter", url: "https://x.com/TiranChanuka", icon: Twitter },
   ],
 };
 
@@ -78,8 +78,8 @@ export function ContactSection() {
   };
   return (
     <section id="contact" className="relative py-20 px-6 overflow-hidden">
-      {/* Floating Shapes Background */}
-      <FloatingShapes />
+      {/* Starry Background */}
+      <StarryBackground />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div
