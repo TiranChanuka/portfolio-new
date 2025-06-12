@@ -12,8 +12,8 @@ interface Project {
   image: string;
   technologies: string[];
   category: string;
-  liveUrl: string;
-  githubUrl: string;
+  liveUrl?: string;
+  githubUrl?: string;
 }
 
 // Sample project data - will be replaced with data from the admin panel
@@ -22,57 +22,174 @@ const projectCategories = ["All", "Frontend", "WordPress", "UI Design"];
 const projectsData = [
   {
     id: 1,
-    title: "E-commerce Website",
+    title: "Nature Core E-commerce Website",
     description:
       "A modern e-commerce platform with product filtering, cart functionality, and payment processing.",
-    image: "/projects/project-1.svg",
-    technologies: ["React", "Next.js", "Tailwind CSS", "Stripe"],
+    image: "/projects/natureThank.png",
+    technologies: ["React", "TypeScript", "Tailwind CSS"],
     category: "Frontend",
-    liveUrl: "https://example.com/project1",
-    githubUrl: "https://github.com/yourusername/project1",
+    liveUrl: "https://naturecore.lk/",
+    // githubUrl: "https://github.com/yourusername/project1",
   },
   {
     id: 2,
-    title: "Corporate Website",
+    title: "Hari Capital",
     description:
-      "Custom WordPress theme development for a corporate client with custom post types and admin features.",
-    image: "/projects/project-2.svg",
-    technologies: ["WordPress", "PHP", "JavaScript", "SCSS"],
-    category: "WordPress",
-    liveUrl: "https://example.com/project2",
-    githubUrl: "https://github.com/yourusername/project2",
+      "Loan management system with user authentication, loan tracking, and payment history.",
+    image: "/projects/hariCapital.png",
+    technologies: ["React", "Tailwind CSS", "TypeScript", "Ant Design"],
+    category: "Frontend",
+    // liveUrl: "https://example.com/project2",
+    // githubUrl: "https://github.com/yourusername/project2",
   },
   {
     id: 3,
-    title: "Portfolio Dashboard",
+    title: "Kauma's Boat Kitchen",
     description:
-      "Interactive dashboard for tracking portfolio performance with real-time data visualization.",
-    image: "/projects/project-3.svg",
-    technologies: ["React", "Chart.js", "Tailwind CSS", "Firebase"],
-    category: "Frontend",
-    liveUrl: "https://example.com/project3",
-    githubUrl: "https://github.com/yourusername/project3",
+      "wordpress website for a local restaurant, featuring menu management and online reservations.",
+    image: "/projects/boatKitchen.png",
+    technologies: ["WordPress", "PHP", "MySQL", "Elementor"],
+    category: "WordPress",
+    liveUrl: "https://kawumasboatkitchen.com/",
+    // githubUrl: "https://github.com/yourusername/project3",
   },
   {
     id: 4,
-    title: "Learning Platform",
+    title: "KNC Gaming",
     description:
-      "Online learning platform with course management, progress tracking, and interactive quizzes.",
-    image: "/projects/project-4.svg",
-    technologies: ["WordPress", "PHP", "MySQL", "JavaScript"],
+      "A WordPress site for a gaming community, showcasing game reviews and community events.",
+    image: "/projects/KncGaming.png",
+    technologies: ["WordPress", "PHP", "CSS", "Elementor"],
     category: "WordPress",
-    liveUrl: "https://example.com/project4",
-    githubUrl: "https://github.com/yourusername/project4",
+    liveUrl: "https://kncgaming.gg/",
+    githubUrl: "",
   },
   {
     id: 5,
-    title: "UI Design System",
+    title: "Little Rose Inn",
     description:
-      "A comprehensive design system with reusable components, typography, and color schemes.",
-    image: "/projects/project-4.svg",
-    technologies: ["Figma", "Sketch", "Adobe XD"],
+      "Hotel booking website with room management, booking system, and customer reviews.",
+    image: "/projects/littleRose.png",
+    technologies: ["WordPress", "PHP", "CSS", "JavaScript", "Elementor"],
+    category: "WordPress",
+    liveUrl: "https://littleroseinn.com/",
+    // githubUrl: "https://github.com/yourusername/project4",
+  },
+  {
+    id: 6,
+    title: "Silver Sparkles",
+    description:
+      "Ecommerce website for a jewelry store, featuring product listings, shopping cart, and checkout.",
+    image: "/projects/SilverSparkles.png",
+    technologies: ["React js", "Tailwind", "JavaScript", "CSS"],
+    category: "Frontend",
+    liveUrl: "",
+    githubUrl: "",
+  },
+  {
+    id: 7,
+    title: "Udawalawe Jungle Jeep Safari",
+    description:
+      "A WordPress site for a safari tour company, offering booking and tour information.",
+    image: "/projects/udawalawe.png",
+    technologies: ["WordPress", "PHP", "CSS", "JavaScript", "Elementor"],
+    category: "WordPress",
+    liveUrl: "",
+    githubUrl: "",
+  },
+  {
+    id: 8,
+    title: "Mandara Tours Taxi Service",
+    description:
+      "A WordPress site for a taxi service, featuring booking forms and service details.",
+    image: "/projects/MandaraTours.png",
+    technologies: ["WordPress", "PHP", "CSS", "JavaScript", "Elementor"],
+    category: "WordPress",
+    liveUrl: "https://mandaratourstaxi.com/",
+    githubUrl: "",
+  },
+  {
+    id: 9,
+    title: "E-Wallet UI Design",
+    description:
+      "A sleek and modern UI design for an e-wallet application, focusing on user experience and intuitive navigation.",
+    image: "/projects/ewallet.png",
+    technologies: ["Figma", "Photoshop", "Illustrator"],
     category: "UI Design",
-    liveUrl: "https://example.com/project5",
+    liveUrl:
+      "https://www.figma.com/community/file/1356338825922305335/e-wallet",
+    githubUrl: "",
+  },
+  {
+    id: 10,
+    title: "Car Blog UI Design",
+    description:
+      "A clean and responsive UI design for a car blog, showcasing articles, reviews, and user comments.",
+    image: "/projects/Car.png",
+    technologies: ["Figma", "Photoshop", "Illustrator"],
+    category: "UI Design",
+    liveUrl:
+      "https://www.figma.com/community/file/1352279668921102753/car-blog",
+    githubUrl: "",
+  },
+  {
+    id: 11,
+    title: "Mobile Sign in & Sign up UI Design",
+    description:
+      "A modern and user-friendly mobile UI design for sign-in and sign-up screens, ensuring a smooth user experience.",
+    image: "/projects/login.png",
+    technologies: ["Figma", "Photoshop", "Illustrator"],
+    category: "UI Design",
+    liveUrl:
+      "https://www.figma.com/community/file/1299066779432095307/mobile-sign-in-sign-up-design",
+    githubUrl: "",
+  },
+  {
+    id: 12,
+    title: "Food Delivery app Splash Screen UI Design",
+    description:
+      "A vibrant and engaging splash screen design for a food delivery app, designed to capture user attention.",
+    image: "/projects/QuickBite.png",
+    technologies: ["Figma", "Photoshop", "Illustrator"],
+    category: "UI Design",
+    liveUrl:
+      "https://www.figma.com/community/file/1304847508707276735/food-delivery-app-splash-screen",
+    githubUrl: "",
+  },
+  {
+    id: 13,
+    title: "Education Mobile App UI Design (EduLearn)",
+    description:
+      "A comprehensive UI design for an education mobile app, featuring course listings, user profiles, and interactive learning modules.",
+    image: "/projects/EduLearn.png",
+    technologies: ["Figma", "Photoshop", "Illustrator"],
+    category: "UI Design",
+    liveUrl:
+      "https://www.figma.com/community/file/1304508164253558153/education-mobile-app-edulearn",
+    githubUrl: "",
+  },
+  {
+    id: 14,
+    title: "EcoGuide UI Design",
+    description:
+      "A user-friendly UI design for an environmental protection mobile app, focusing on sustainability tips and eco-friendly practices.",
+    image: "/projects/EcoGuide.png",
+    technologies: ["Figma", "Photoshop", "Illustrator"],
+    category: "UI Design",
+    liveUrl:
+      "https://www.figma.com/community/file/1302581806533869902/environment-protect-mobile-app",
+    githubUrl: "",
+  },
+  {
+    id: 15,
+    title: "Bloom Hub Mobile App UI Design",
+    description:
+      "A beautiful and intuitive UI design for a flower store application, featuring product browsing, cart management, and checkout.",
+    image: "/projects/bloomHub.png",
+    technologies: ["Figma", "Photoshop", "Illustrator"],
+    category: "UI Design",
+    liveUrl:
+      "https://www.figma.com/community/file/1278052209735568526/flower-store-application-bloomhub",
     githubUrl: "",
   },
 ];
