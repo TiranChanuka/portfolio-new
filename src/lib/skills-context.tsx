@@ -234,7 +234,7 @@ const availableSkillIcons: Record<string, string> = {
   PHP: "/Icons/php.png", // Using WordPress icon as fallback
   WooCommerce: "/Icons/woocommerce.png", // Using WordPress icon as fallback
   "Custom Themes Development": "/Icons/Wordpress.png",
-  Elementor: "/Icons/Elementor.png", // Fixed typo from "Elementer"
+  Elementor: "/Icons/Elementer.png", // Fixed typo from "Elementer"
   "Gutenberg Blocks": "/Icons/Wordpress.png",
   "WordPress Security": "/Icons/Wordpress.png",
   "WordPress Performance Optimization": "/Icons/Wordpress.png",
