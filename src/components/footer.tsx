@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 
-// This would come from the admin panel
+// Current year
 const currentYear = new Date().getFullYear();
 
 export function Footer() {

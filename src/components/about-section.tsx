@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Briefcase, GraduationCap, Award } from "lucide-react";
 
-// This will be replaced with data from the admin panel
+// Experience data
 const experienceData = [
   {
     title: "Junior Software Engineer",

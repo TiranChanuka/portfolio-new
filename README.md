@@ -111,23 +111,23 @@ The portfolio features a unique skills visualization that represents different s
 - Interactive tooltips with detailed information
 - Full 3D controls (rotate, zoom, pan)
 
-### Admin Dashboard
+### Customizable Portfolio
 
-A protected admin area allows for:
+The portfolio is designed to be easily customizable with:
 
-- Content management for projects
-- Skills data updates
-- Profile information editing
-- Authentication with NextAuth.js
+- Modifiable project data
+- Customizable skills section
+- Adaptable personal information
+- Editable contact details
 
 ## 🔧 Customization
 
 You can easily adapt this portfolio for your own use by:
 
-1. Updating skills data in `page.tsx`
-2. Adding your projects in the admin dashboard
+1. Updating skills data in `page.tsx` and skills-context.tsx
+2. Adding your projects directly in projects-section.tsx
 3. Modifying theme colors in Tailwind config
-4. Editing personal information in the profile section
+4. Editing personal information in about-section.tsx and contact-section.tsx
 
 ## 📱 Responsive Design
 

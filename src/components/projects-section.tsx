@@ -16,7 +16,7 @@ interface Project {
   githubUrl?: string;
 }
 
-// Sample project data - will be replaced with data from the admin panel
+// Sample project data
 const projectCategories = ["All", "Frontend", "WordPress", "UI Design"];
 
 const projectsData = [

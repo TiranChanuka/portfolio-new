@@ -29,7 +29,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-// This would come from the admin panel
+// Contact information
 const contactInfo = {
   email: "tiranchanukaw@gmail.com",
   phone: "+94 717494134",
