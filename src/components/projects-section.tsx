@@ -185,7 +185,7 @@ const projectsData = [
     title: "Bloom Hub Mobile App UI Design",
     description:
       "A beautiful and intuitive UI design for a flower store application, featuring product browsing, cart management, and checkout.",
-    image: "/projects/bloomHub.png",
+    image: "/projects/bloomhub.png",
     technologies: ["Figma", "Photoshop", "Illustrator"],
     category: "UI Design",
     liveUrl:
