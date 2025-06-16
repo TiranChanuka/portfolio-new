@@ -90,9 +90,9 @@ const certificationData = [
     year: "2022",
   },
   {
-    name: "WordPress Theme & Plugin Development",
-    issuer: "WP Academy",
-    year: "2019",
+    name: "Learn how to master a great WordPress website design by using Elementor",
+    issuer: "Udemy",
+    year: "2025",
   },
 ];
 
