@@ -20,8 +20,10 @@ export default {
         "float-particle": "particle-float 12s linear infinite",
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "bounce-gentle": "bounce-gentle 3s ease-in-out infinite",
+        "spin-slow": "spin 12s linear infinite",
         glow: "glow 2s ease-in-out infinite alternate",
         shimmer: "shimmer 3s ease-in-out infinite",
+        "shine-fast": "shimmer 2s ease-in-out infinite",
       },
       keyframes: {
         float: {
