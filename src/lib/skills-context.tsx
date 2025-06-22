@@ -221,7 +221,7 @@ const availableSkillIcons: Record<string, string> = {
   "Three.js": "/Icons/React.png", // Using React icon as fallback
   Redux: "/Icons/ReactRedux.png",
   "API Integration": "/Icons/React.png", // Using React icon as fallback
-  Bootstrap: "/Icons/Bootstrap.png", // Fixed typo from "Boostrap"
+  Bootstrap: "/Icons/Boostrap.png", // Fixed typo from "Boostrap"
   "Chakra UI": "/Icons/ChakraUI.png",
   "MUI (Material-UI)": "/Icons/MUI.png",
   Sass: "/Icons/Sass.png",
