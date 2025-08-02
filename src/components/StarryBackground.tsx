@@ -43,32 +43,30 @@ export function StarryBackground() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Initialize stars with more count and purple/white colors
+    // Initialize minimal elegant stars
     const initStars = () => {
       starsRef.current = [];
-      const starCount = Math.floor((canvas.width * canvas.height) / 3000);
+      const starCount = Math.floor((canvas.width * canvas.height) / 8000); // Much fewer stars
 
       const colors = [
-        "#ffffff",
-        "#f8f9ff",
-        "#e6e6ff",
-        "#d4d4ff",
-        "#c8c8ff",
-        "#b8b8ff",
-        "#a8a8ff",
+        "#ffffff", // Pure white
+        "#f8fafc", // Very light gray
+        "#e2e8f0", // Light gray
+        "#cbd5e1", // Gray blue
+        "#94a3b8", // Blue gray
       ];
 
       for (let i = 0; i < starCount; i++) {
         starsRef.current.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          size: Math.random() * 3 + 0.5,
-          opacity: Math.random() * 0.9 + 0.1,
-          twinkleSpeed: Math.random() * 0.03 + 0.005,
+          size: Math.random() * 1.5 + 0.5, // Smaller stars
+          opacity: Math.random() * 0.6 + 0.4,
+          twinkleSpeed: Math.random() * 0.015 + 0.002, // Very slow twinkling
           color: colors[Math.floor(Math.random() * colors.length)],
           velocity: {
-            x: (Math.random() - 0.5) * 0.15,
-            y: (Math.random() - 0.5) * 0.15,
+            x: (Math.random() - 0.5) * 0.03, // Very slow movement
+            y: (Math.random() - 0.5) * 0.03,
           },
         });
       }
@@ -132,12 +130,19 @@ export function StarryBackground() {
       time += 0.01;
       shootingStarTimer++;
 
-      // Clear canvas
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      // Clear canvas with pure dark space gradient
+      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      gradient.addColorStop(0, "rgba(0, 0, 0, 0.98)"); // Pure black
+      gradient.addColorStop(0.3, "rgba(15, 23, 42, 0.95)"); // Very dark slate
+      gradient.addColorStop(0.7, "rgba(30, 27, 75, 0.90)"); // Dark purple-blue
+      gradient.addColorStop(1, "rgba(0, 0, 0, 0.98)"); // Pure black
+
+      ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Create shooting stars occasionally
-      if (shootingStarTimer > 120 + Math.random() * 180) {
+      // Create shooting stars very rarely
+      if (shootingStarTimer > 600 + Math.random() * 1200) {
+        // Much less frequent
         createShootingStar();
         shootingStarTimer = 0;
       }
