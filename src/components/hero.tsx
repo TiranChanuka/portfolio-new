@@ -71,7 +71,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative h-screen flex items-center justify-center overflow-hidden"
+      className="relative h-auto flex items-center justify-center overflow-hidden bg-black hero-mobile mobile-touch-optimized hero-content-spacing"
     >
       {/* Starry Background with Parallax Effect */}
       <Suspense fallback={<div className="absolute inset-0 bg-black" />}>
@@ -87,46 +87,112 @@ export function Hero() {
         </div>
       </Suspense>
 
-      {/* Enhanced Gradient Overlays with Subtle Animation */}
+      {/* Simplified Dark Space Background */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-black/70 via-purple-900/30 to-black/70 z-5"
+        className="absolute inset-0 bg-gradient-to-br from-black via-gray-900/50 to-black z-5"
         animate={{
           backgroundPosition: ["0% 0%", "100% 100%"],
         }}
         transition={{
-          duration: 20,
+          duration: 30,
           repeat: Infinity,
           repeatType: "reverse",
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/20 to-background/5 z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-transparent to-blue-600/20 z-10" />
 
-      {/* Animated Particle Effects */}
+      {/* Deep Space Base Layer */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/95 via-blue-950/20 to-black/95 z-6" />
+
+      {/* Subtle Purple Glow */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-purple-950/20 via-transparent to-purple-950/20 z-7"
+        animate={{
+          opacity: [0.1, 0.25, 0.1],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* Elegant Glowing Stars - Fewer but More Beautiful */}
       {loaded && (
         <div className="absolute inset-0 z-10 overflow-hidden">
-          {Array.from({ length: 15 }).map((_, i) => (
+          {/* Premium Twinkling Stars */}
+          {Array.from({ length: 12 }).map((_, i) => (
             <motion.div
-              key={i}
-              className="absolute rounded-full bg-white/10 backdrop-blur-sm"
+              key={`star-${i}`}
+              className="absolute rounded-full bg-white shadow-lg"
               initial={{
-                width: Math.random() * 20 + 5,
-                height: Math.random() * 20 + 5,
-                x: Math.random() * window.innerWidth,
-                y: window.innerHeight + 100,
-                opacity: 0.3 + Math.random() * 0.4,
+                width: Math.random() * 2 + 1,
+                height: Math.random() * 2 + 1,
+                x:
+                  Math.random() *
+                  (typeof window !== "undefined" ? window.innerWidth : 1200),
+                y:
+                  Math.random() *
+                  (typeof window !== "undefined" ? window.innerHeight : 800),
+                opacity: 0.4 + Math.random() * 0.6,
               }}
               animate={{
-                y: -100,
-                x: `calc(${Math.random() * 200 - 100}px + ${
-                  calculateMovement(0.5).x
-                }px)`,
+                opacity: [0.4, 1, 0.4],
+                scale: [0.8, 1.4, 0.8],
+                boxShadow: [
+                  "0 0 6px rgba(255,255,255,0.6), 0 0 12px rgba(147, 51, 234, 0.3)",
+                  "0 0 15px rgba(255,255,255,1), 0 0 25px rgba(147, 51, 234, 0.5)",
+                  "0 0 6px rgba(255,255,255,0.6), 0 0 12px rgba(147, 51, 234, 0.3)",
+                ],
               }}
               transition={{
-                duration: 10 + Math.random() * 20,
+                duration: 3 + Math.random() * 3,
                 repeat: Infinity,
-                delay: Math.random() * 10,
-                ease: "linear",
+                delay: Math.random() * 4,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+
+          {/* Occasional Shooting Star */}
+          {Array.from({ length: 1 }).map((_, i) => (
+            <motion.div
+              key={`shooting-${i}`}
+              className="absolute w-1 h-1 bg-white rounded-full"
+              initial={{
+                x:
+                  Math.random() *
+                  (typeof window !== "undefined"
+                    ? window.innerWidth * 0.3
+                    : 400),
+                y:
+                  Math.random() *
+                  (typeof window !== "undefined"
+                    ? window.innerHeight * 0.3
+                    : 300),
+                opacity: 0,
+                scaleX: 0,
+              }}
+              animate={{
+                x:
+                  (typeof window !== "undefined" ? window.innerWidth : 1200) +
+                  200,
+                y:
+                  (typeof window !== "undefined" ? window.innerHeight : 800) +
+                  200,
+                opacity: [0, 1, 0],
+                scaleX: [0, 20, 0],
+              }}
+              transition={{
+                duration: 1.2,
+                repeat: Infinity,
+                delay: 15 + i * 20,
+                ease: "easeOut",
+              }}
+              style={{
+                background:
+                  "linear-gradient(90deg, transparent, rgba(255,255,255,0.9), rgba(147, 51, 234, 0.5), transparent)",
+                transformOrigin: "left center",
+                filter: "blur(0.5px)",
               }}
             />
           ))}
@@ -134,13 +200,13 @@ export function Hero() {
       )}
 
       {/* Content */}
-      <div className="relative z-20 max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-12">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 lg:gap-12 min-h-screen lg:py-0  lg:pt-0">
         {/* Text Content with Enhanced Animations */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="lg:w-3/5 space-y-6 text-left"
+          className="w-full lg:w-3/5 space-y-4 sm:space-y-6 text-center lg:text-left"
           style={{
             transform: `translate(${calculateMovement(-0.5).x}px, ${
               calculateMovement(-0.5).y
@@ -155,7 +221,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-full blur-xl opacity-30" />
-            <p className="relative text-lg md:text-xl text-foreground/80 font-medium py-1 px-4 rounded-full bg-gradient-to-r from-background/40 to-background/20 backdrop-blur-sm border border-white/10">
+            <p className="relative text-sm sm:text-base md:text-lg text-foreground/80 font-medium py-1 px-3 sm:px-4 rounded-full bg-gradient-to-r from-background/40 to-background/20 backdrop-blur-sm border border-white/10">
               Hello, I'm
             </p>
           </motion.div>
@@ -165,7 +231,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent drop-shadow-lg"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent drop-shadow-lg"
           >
             Tiran Chanuka
           </motion.h1>
@@ -175,7 +241,7 @@ export function Hero() {
             variants={typingVariants}
             initial="hidden"
             animate="visible"
-            className="text-xl md:text-3xl lg:text-4xl font-semibold text-foreground/90 overflow-hidden"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold text-foreground/90 overflow-hidden"
           >
             {subtitle.split("").map((char, i) => (
               <motion.span
@@ -193,7 +259,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
-            className="text-base md:text-lg  max-w-2xl leading-relaxed -sm rounded-lg "
+            className="text-sm sm:text-base md:text-lg max-w-xl lg:max-w-2xl leading-relaxed text-center lg:text-left"
           >
             I'm an experienced Frontend Developer, WordPress developer, and
             UI/UX Designer, with over three years of expertise in building
@@ -208,11 +274,11 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            className="flex flex-col sm:flex-row gap-4 justify-start items-center mt-8"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start items-center mt-6 sm:mt-8"
           >
             <motion.button
               onClick={scrollToProjects}
-              className="relative px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium transition-all duration-300 flex items-center gap-2 group overflow-hidden animate-glow"
+              className="relative w-full sm:w-auto px-6 sm:px-8 py-3.5 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 group overflow-hidden animate-glow mobile-cta-button"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -241,7 +307,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.4 }}
-            className="flex justify-start gap-6 mt-8"
+            className="flex justify-center lg:justify-start gap-4 sm:gap-6 mt-6 sm:mt-8"
           >
             {[
               {
@@ -268,7 +334,7 @@ export function Hero() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`relative p-3 rounded-full backdrop-blur-sm border border-white/10 shadow-lg bg-gradient-to-br ${color} group overflow-hidden`}
+                className={`relative p-2 sm:p-3 rounded-full backdrop-blur-sm border border-white/10 shadow-lg bg-gradient-to-br ${color} group overflow-hidden mobile-social-button`}
                 aria-label={label}
                 whileHover={{
                   scale: 1.15,
@@ -278,7 +344,7 @@ export function Hero() {
                 whileTap={{ scale: 0.95 }}
               >
                 <div className="absolute inset-0 bg-shimmer-gradient bg-[length:200%_100%] animate-shimmer opacity-30" />
-                <Icon className="h-5 w-5 text-white relative z-10" />
+                <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-white relative z-10" />
                 <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-xs text-white whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:-bottom-6 transition-all duration-300">
                   {label}
                 </span>
@@ -292,7 +358,7 @@ export function Hero() {
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="lg:w-2/5 flex justify-center"
+          className="w-full lg:w-2/5 flex justify-center order-first lg:order-last"
           style={{
             transform: `translate(${calculateMovement(0.8).x}px, ${
               calculateMovement(0.8).y
@@ -317,7 +383,7 @@ export function Hero() {
               }}
             />
             {/* Image container with enhanced borders and effects */}
-            <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden backdrop-blur-sm shadow-2xl shadow-purple-500/20">
+            <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden backdrop-blur-sm shadow-2xl shadow-purple-500/20 mobile-profile-small">
               {/* Outer Glow */}
               <div className="absolute -inset-px bg-gradient-to-r from-purple-500 to-blue-500 rounded-full animate-pulse-slow" />
 
@@ -590,7 +656,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 2 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30"
+        className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-30"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
