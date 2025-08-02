@@ -29,8 +29,8 @@ export function CategorySolarSystems() {
   };
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-blue-950/10 via-black to-blue-950/10 relative">
-      <div className="container mx-auto px-4">
+    <section className="py-12 md:py-16 lg:py-24 bg-gradient-to-b from-blue-950/10 via-black to-blue-950/10 relative">
+      <div className="container mx-auto px-4 sm:px-6">
         <AnimatePresence mode="wait">
           {activeView === "all" ? (
             <motion.div
@@ -39,8 +39,9 @@ export function CategorySolarSystems() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
+              className="hidden sm:block"
             >
-              {/* Combined solar system with category tabs */}
+              {/* Combined solar system with category tabs - Hidden on mobile */}
               <ThreeJsSolarSystem />
             </motion.div>
           ) : (
@@ -50,7 +51,7 @@ export function CategorySolarSystems() {
               initial="hidden"
               animate="visible"
               exit={{ opacity: 0 }}
-              className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+              className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
             >
               {categories.map((category, index) => (
                 <motion.div
@@ -110,6 +111,49 @@ export function CategorySolarSystems() {
               ))}
             </motion.div>
           )}
+
+          {/* Mobile-friendly skills display */}
+          <motion.div
+            key="mobile-skills"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="sm:hidden space-y-6"
+          >
+            <div className="text-center mb-8">
+              <h2 className="text-2xl font-bold text-white mb-2">My Skills</h2>
+              <p className="text-blue-300">Explore my technical expertise</p>
+            </div>
+
+            {categories.map((category, index) => (
+              <motion.div
+                key={category}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-black/20 backdrop-blur-sm rounded-xl border border-blue-500/10 p-4"
+              >
+                <h3 className="text-lg font-medium text-white mb-3">
+                  {category}
+                </h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {skills[category]?.map((skill, skillIndex) => (
+                    <div
+                      key={skill.id}
+                      className="bg-blue-600/20 rounded-lg p-2 text-center"
+                    >
+                      <div className="text-white text-sm font-medium">
+                        {skill.name}
+                      </div>
+                      <div className="text-blue-300 text-xs mt-1">
+                        {skill.level}%
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </AnimatePresence>
 
         {/* Expanded view modal for individual category */}
