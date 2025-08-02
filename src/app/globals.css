@@ -20,7 +20,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Add animation for stars */
+/* Add animation for stars and night sky effects */
 @keyframes twinkle {
   0%,
   100% {
@@ -31,8 +31,57 @@ body {
   }
 }
 
+@keyframes shooting-star {
+  0% {
+    transform: translateX(-100px) translateY(-100px) scaleX(0);
+    opacity: 0;
+  }
+  15% {
+    transform: translateX(0px) translateY(0px) scaleX(1);
+    opacity: 1;
+  }
+  85% {
+    transform: translateX(300px) translateY(300px) scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(400px) translateY(400px) scaleX(0);
+    opacity: 0;
+  }
+}
+
+@keyframes gentle-float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(3deg);
+  }
+}
+
 .animate-twinkle {
   animation: twinkle 3s ease-in-out infinite;
+}
+
+.animate-shooting-star {
+  animation: shooting-star 2s ease-out infinite;
+}
+
+.animate-gentle-float {
+  animation: gentle-float 6s ease-in-out infinite;
+}
+
+/* Elegant Dark Space Background */
+.night-sky-bg {
+  background: linear-gradient(
+    180deg,
+    #000000 0%,
+    #0f0f23 20%,
+    #1a0a2e 50%,
+    #16213e 80%,
+    #000000 100%
+  );
 }
 
 /* Tech Badge Container Styles */
@@ -79,5 +128,526 @@ body {
   }
   50% {
     filter: brightness(1.2) drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+  }
+}
+
+/* Custom Scrollbar with Gradient and Glowing Effects */
+/* Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.15) 0%,
+    rgba(147, 51, 234, 0.12) 50%,
+    rgba(59, 130, 246, 0.15) 100%
+  );
+  border-radius: 12px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  box-shadow: inset 0 0 6px rgba(59, 130, 246, 0.1);
+  animation: track-glow 6s ease-in-out infinite;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.95) 0%,
+    rgba(147, 51, 234, 0.95) 50%,
+    rgba(59, 130, 246, 0.95) 100%
+  );
+  border-radius: 12px;
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6), 0 0 16px rgba(147, 51, 234, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: scrollbar-glow 3s ease-in-out infinite;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 1) 0%,
+    rgba(147, 51, 234, 1) 50%,
+    rgba(59, 130, 246, 1) 100%
+  );
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.9), 0 0 25px rgba(147, 51, 234, 0.7),
+    0 0 35px rgba(59, 130, 246, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 1) 0%,
+    rgba(124, 58, 237, 1) 50%,
+    rgba(37, 99, 235, 1) 100%
+  );
+  box-shadow: 0 0 20px rgba(59, 130, 246, 1), 0 0 30px rgba(147, 51, 234, 0.9),
+    0 0 40px rgba(59, 130, 246, 0.7), inset 0 2px 0 rgba(255, 255, 255, 0.5);
+  transform: scale(0.98);
+}
+
+::-webkit-scrollbar-corner {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.2) 0%,
+    rgba(147, 51, 234, 0.15) 100%
+  );
+  border-radius: 8px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(59, 130, 246, 0.9) rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Smooth scrolling enhancements for mobile */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+    /* Improve scroll performance on mobile */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Fix for mobile Safari viewport units */
+  .mobile-vh-fix {
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for mobile browsers */
+  }
+
+  /* Ensure proper touch scrolling */
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Mobile navigation improvements */
+  .mobile-nav-link {
+    padding: 12px 16px;
+    font-size: 16px; /* Prevent zoom on iOS */
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-nav-link:active {
+    background-color: rgba(59, 130, 246, 0.1);
+    transform: scale(0.98);
+  }
+}
+
+/* Custom scrollbar for specific containers with enhanced styling */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(59, 130, 246, 0.9) rgba(59, 130, 246, 0.15) !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.12) 0%,
+    rgba(147, 51, 234, 0.08) 50%,
+    rgba(59, 130, 246, 0.12) 100%
+  );
+  border-radius: 10px;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  box-shadow: inset 0 0 4px rgba(59, 130, 246, 0.15);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.9) 0%,
+    rgba(147, 51, 234, 0.9) 50%,
+    rgba(59, 130, 246, 0.9) 100%
+  );
+  border-radius: 10px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.6), 0 0 12px rgba(147, 51, 234, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 1) 0%,
+    rgba(126, 34, 206, 1) 50%,
+    rgba(37, 99, 235, 1) 100%
+  );
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.8), 0 0 18px rgba(147, 51, 234, 0.6),
+    0 0 25px rgba(59, 130, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* Enhanced scrollbar glow animations */
+@keyframes scrollbar-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4),
+      0 0 16px rgba(147, 51, 234, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.7),
+      0 0 25px rgba(147, 51, 234, 0.5);
+  }
+}
+
+@keyframes scrollbar-glow {
+  0% {
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4),
+      0 0 16px rgba(147, 51, 234, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  33% {
+    box-shadow: 0 0 12px rgba(147, 51, 234, 0.5),
+      0 0 20px rgba(124, 58, 237, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  66% {
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5),
+      0 0 18px rgba(147, 51, 234, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.4),
+      0 0 16px rgba(147, 51, 234, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Gradient shift animation for scrollbar */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-scrollbar::-webkit-scrollbar-thumb {
+  animation: scrollbar-glow 4s ease-in-out infinite;
+  background-size: 200% 200%;
+}
+
+/* Ultra glow scrollbar for special sections */
+.ultra-glow-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    45deg,
+    rgba(59, 130, 246, 1) 0%,
+    rgba(147, 51, 234, 1) 25%,
+    rgba(124, 58, 237, 1) 50%,
+    rgba(6, 182, 212, 1) 75%,
+    rgba(59, 130, 246, 1) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient-shift 3s ease infinite,
+    scrollbar-glow 2s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.8), 0 0 25px rgba(147, 51, 234, 0.6),
+    0 0 35px rgba(6, 182, 212, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Scrollbar visibility animation */
+@keyframes scrollbar-appear {
+  from {
+    opacity: 0;
+    transform: scaleX(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+/* Enhanced scrollbar for dark theme */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-track {
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.15) 0%,
+      rgba(147, 51, 234, 0.12) 50%,
+      rgba(59, 130, 246, 0.15) 100%
+    ) !important;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.95) 0%,
+      rgba(147, 51, 234, 0.95) 50%,
+      rgba(59, 130, 246, 0.95) 100%
+    ) !important;
+    border: 2px solid rgba(59, 130, 246, 0.2);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 1) 0%,
+      rgba(147, 51, 234, 1) 50%,
+      rgba(59, 130, 246, 1) 100%
+    ) !important;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.9),
+      0 0 25px rgba(147, 51, 234, 0.7);
+  }
+}
+
+/* Scrollbar for light theme */
+@media (prefers-color-scheme: light) {
+  ::-webkit-scrollbar-track {
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.08) 0%,
+      rgba(147, 51, 234, 0.06) 50%,
+      rgba(59, 130, 246, 0.08) 100%
+    ) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.85) 0%,
+      rgba(147, 51, 234, 0.85) 50%,
+      rgba(59, 130, 246, 0.85) 100%
+    ) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Enhanced track glow animation */
+@keyframes track-glow {
+  0%,
+  100% {
+    border-color: rgba(59, 130, 246, 0.2);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    border-color: rgba(59, 130, 246, 0.4);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5),
+      inset 0 0 10px rgba(59, 130, 246, 0.1);
+  }
+}
+
+/* Apply track animation to main scrollbar */
+::-webkit-scrollbar-track {
+  animation: track-glow 6s ease-in-out infinite;
+}
+
+/* Scrollbar corner with gradient */
+::-webkit-scrollbar-corner {
+  background: linear-gradient(
+    135deg,
+    rgba(112, 35, 185, 0.9) 0%,
+    rgba(24, 53, 119, 0.8) 100%
+  );
+  border-radius: 8px;
+  border: 1px solid rgba(144, 37, 180, 0.652);
+}
+
+/* Mobile Responsive Improvements */
+@media (max-width: 768px) {
+  /* Hide custom scrollbar on mobile for better performance */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(59, 130, 246, 0.6);
+    border-radius: 4px;
+  }
+
+  /* Mobile typography improvements */
+  body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* Prevent horizontal scroll */
+  html,
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Mobile container spacing */
+  .mobile-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Mobile button sizing */
+  .mobile-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Mobile text sizing */
+  .mobile-text-lg {
+    font-size: 1.1rem;
+  }
+
+  .mobile-text-xl {
+    font-size: 1.25rem;
+  }
+
+  .mobile-text-2xl {
+    font-size: 1.5rem;
+  }
+
+  .mobile-text-3xl {
+    font-size: 1.875rem;
+  }
+
+  .mobile-text-4xl {
+    font-size: 2.25rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  /* Even smaller scrollbar for small screens */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Smaller container padding */
+  .mobile-container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  /* Adjust tech badge animations for mobile */
+  .tech-badge-container {
+    display: none; /* Hide complex animations on very small screens */
+  }
+
+  /* Mobile specific spacing */
+  .mobile-spacing-tight {
+    gap: 0.5rem;
+  }
+
+  .mobile-spacing-normal {
+    gap: 1rem;
+  }
+}
+
+/* Mobile touch optimization */
+@media (max-width: 768px) {
+  /* Optimize touch interactions */
+  .mobile-touch-optimized {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Hero section mobile specific */
+  .hero-mobile {
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for better mobile support */
+    padding-top: 100px; /* Account for header + extra space */
+    padding-bottom: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Mobile text improvements */
+  .mobile-hero-text {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    text-align: center;
+  }
+
+  /* Mobile profile image adjustments */
+  .mobile-profile-container {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Hide complex animations on small mobile */
+  @media (max-width: 480px) {
+    .tech-badge-container {
+      display: none !important;
+    }
+
+    /* Smaller profile image on very small screens */
+    .mobile-profile-small {
+      width: 12rem !important;
+      height: 12rem !important;
+    }
+
+    /* Extra padding for very small screens */
+    .hero-mobile {
+      padding-top: 110px !important;
+    }
+  }
+
+  /* Improve touch targets on mobile */
+  .mobile-cta-button {
+    min-height: 48px;
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .mobile-social-button {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.75rem;
+  }
+}
+
+/* Header and navigation improvements */
+@media (max-width: 768px) {
+  /* Ensure header has consistent height */
+  header {
+    min-height: 64px;
+  }
+
+  /* Mobile navigation menu improvements */
+  .mobile-nav-menu {
+    position: relative;
+    z-index: 60;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Ensure content doesn't overlap with mobile menu */
+  .hero-content-spacing {
+    margin-top: 0;
+    padding-top: calc(100px + env(safe-area-inset-top, 0px));
+  }
+
+  /* Safe area support for notched devices */
+  @supports (padding: max(0px)) {
+    .hero-mobile {
+      padding-top: max(100px, env(safe-area-inset-top) + 100px);
+    }
   }
 }
