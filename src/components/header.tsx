@@ -59,7 +59,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 py-4 px-6 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 py-3 sm:py-4 px-4 sm:px-6 transition-all duration-300 min-h-[64px] sm:min-h-[72px]",
         isScrolled
           ? "bg-background/80 backdrop-blur-md border-b border-foreground/10"
           : "bg-transparent"
@@ -112,8 +112,9 @@ export function Header() {
           {/* <ThemeToggle /> */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-foreground p-1"
+            className="text-foreground p-2 rounded-md hover:bg-foreground/10 transition-colors mobile-button-improved"
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? (
               <X className="h-6 w-6" />
@@ -131,15 +132,15 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background"
+            className="md:hidden bg-background/95 backdrop-blur-md border-b border-foreground/10"
           >
-            <nav className="flex flex-col px-6 py-4 gap-4 border-t border-foreground/10 mt-4">
+            <nav className="flex flex-col px-4 sm:px-6 py-3 sm:py-4 gap-2 border-t border-foreground/10">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   href={link.path}
                   onClick={(e) => handleNavClick(e, link.path)}
-                  className="text-foreground/80 hover:text-foreground transition-colors py-2"
+                  className="text-foreground/80 hover:text-foreground transition-colors mobile-nav-link"
                 >
                   {link.name}
                 </Link>
