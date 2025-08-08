@@ -24,6 +24,13 @@ export default {
         glow: "glow 2s ease-in-out infinite alternate",
         shimmer: "shimmer 3s ease-in-out infinite",
         "shine-fast": "shimmer 2s ease-in-out infinite",
+        // New enhanced animations for the tech badges
+        "orbital-float": "orbital-float 4s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "shimmer-effect": "shimmer-effect 2.5s ease-in-out infinite",
+        "orbital-trail": "orbital-trail 8s linear infinite",
+        "energy-pulse": "energy-pulse 2s ease-in-out infinite",
+        "particle-drift": "particle-drift 6s ease-in-out infinite",
       },
       keyframes: {
         float: {
@@ -76,6 +83,83 @@ export default {
           },
           "100%": {
             backgroundPosition: "200% 0",
+          },
+        },
+        // New enhanced keyframes for tech badges
+        "orbital-float": {
+          "0%, 100%": {
+            transform: "translateY(0px) rotate(0deg)",
+          },
+          "33%": {
+            transform: "translateY(-8px) rotate(5deg)",
+          },
+          "66%": {
+            transform: "translateY(4px) rotate(-3deg)",
+          },
+        },
+        "pulse-glow": {
+          "0%, 100%": {
+            boxShadow: "0 0 15px 3px currentColor",
+            transform: "scale(1)",
+          },
+          "50%": {
+            boxShadow: "0 0 30px 8px currentColor",
+            transform: "scale(1.05)",
+          },
+        },
+        "shimmer-effect": {
+          "0%": {
+            transform: "translateX(-100%) skewX(-45deg)",
+            opacity: "0",
+          },
+          "50%": {
+            opacity: "1",
+          },
+          "100%": {
+            transform: "translateX(100%) skewX(-45deg)",
+            opacity: "0",
+          },
+        },
+        "orbital-trail": {
+          "0%": {
+            transform: "rotate(0deg) scale(1)",
+            opacity: "0.3",
+          },
+          "50%": {
+            transform: "rotate(180deg) scale(1.1)",
+            opacity: "0.6",
+          },
+          "100%": {
+            transform: "rotate(360deg) scale(1)",
+            opacity: "0.3",
+          },
+        },
+        "energy-pulse": {
+          "0%, 100%": {
+            transform: "scale(1)",
+            opacity: "0.7",
+          },
+          "50%": {
+            transform: "scale(1.5)",
+            opacity: "1",
+          },
+        },
+        "particle-drift": {
+          "0%": {
+            transform: "translate(0, 0) scale(0)",
+            opacity: "0",
+          },
+          "25%": {
+            transform: "translate(20px, -30px) scale(1)",
+            opacity: "1",
+          },
+          "75%": {
+            transform: "translate(-30px, 20px) scale(0.8)",
+            opacity: "0.5",
+          },
+          "100%": {
+            transform: "translate(0, 0) scale(0)",
+            opacity: "0",
           },
         },
       },

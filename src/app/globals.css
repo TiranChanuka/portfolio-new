@@ -20,83 +20,64 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Add animation for stars and night sky effects */
+/* Simple performance-optimized star animations */
 @keyframes twinkle {
   0%,
   100% {
-    opacity: 0.2;
+    opacity: 0.3;
   }
   50% {
     opacity: 0.8;
   }
 }
 
-@keyframes shooting-star {
-  0% {
-    transform: translateX(-100px) translateY(-100px) scaleX(0);
-    opacity: 0;
-  }
-  15% {
-    transform: translateX(0px) translateY(0px) scaleX(1);
-    opacity: 1;
-  }
-  85% {
-    transform: translateX(300px) translateY(300px) scaleX(1);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(400px) translateY(400px) scaleX(0);
-    opacity: 0;
-  }
+.star-twinkle {
+  animation: twinkle 2s infinite ease-in-out;
 }
 
+/* Keep essential animations only */
 @keyframes gentle-float {
   0%,
   100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px) rotate(3deg);
+    transform: translateY(-5px);
   }
-}
-
-.animate-twinkle {
-  animation: twinkle 3s ease-in-out infinite;
-}
-
-.animate-shooting-star {
-  animation: shooting-star 2s ease-out infinite;
 }
 
 .animate-gentle-float {
-  animation: gentle-float 6s ease-in-out infinite;
+  animation: gentle-float 3s ease-in-out infinite;
 }
 
-/* Elegant Dark Space Background */
-.night-sky-bg {
-  background: linear-gradient(
-    180deg,
-    #000000 0%,
-    #0f0f23 20%,
-    #1a0a2e 50%,
-    #16213e 80%,
-    #000000 100%
-  );
+/* Skills section animations */
+@keyframes skill-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5),
+      0 0 30px rgba(147, 51, 234, 0.3);
+  }
 }
 
-/* Tech Badge Container Styles */
-.tech-badge-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 25;
+@keyframes float-up-down {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
-.tech-badge-container > * {
-  pointer-events: auto;
+.animate-skill-glow {
+  animation: skill-glow 3s ease-in-out infinite;
+}
+
+.animate-float-subtle {
+  animation: float-up-down 4s ease-in-out infinite;
 }
 
 /* Enhanced orbital animations */
