@@ -27,34 +27,12 @@ const letterVariants = {
 };
 
 export function Hero() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  // Mouse position tracking disabled for performance
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     setLoaded(true);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: e.clientX,
-        y: e.clientY,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
-
-  const calculateMovement = (factor: number = 1) => {
-    if (typeof window === "undefined") return { x: 0, y: 0 };
-
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-
-    const moveX = ((mousePosition.x - centerX) / centerX) * 5 * factor;
-    const moveY = ((mousePosition.y - centerY) / centerY) * 5 * factor;
-
-    return { x: moveX, y: moveY };
-  };
 
   const scrollToProjects = () => {
     const projectsSection = document.getElementById("projects");
@@ -75,14 +53,7 @@ export function Hero() {
     >
       {/* Starry Background with Parallax Effect */}
       <Suspense fallback={<div className="absolute inset-0 bg-black" />}>
-        <div
-          className="absolute inset-0"
-          style={{
-            transform: `translate(${calculateMovement(0.2).x}px, ${
-              calculateMovement(0.2).y
-            }px)`,
-          }}
-        >
+        <div className="absolute inset-0">
           <StarryBackground />
         </div>
       </Suspense>
@@ -104,95 +75,20 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/95 via-blue-950/20 to-black/95 z-6" />
 
       {/* Subtle Purple Glow */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-purple-950/20 via-transparent to-purple-950/20 z-7"
-        animate={{
-          opacity: [0.1, 0.25, 0.1],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-950/10 via-transparent to-purple-950/10 z-7" />
 
-      {/* Elegant Glowing Stars - Fewer but More Beautiful */}
+      {/* Simplified Stars for Performance */}
       {loaded && (
         <div className="absolute inset-0 z-10 overflow-hidden">
-          {/* Premium Twinkling Stars */}
+          {/* Simple Static Stars */}
           {Array.from({ length: 12 }).map((_, i) => (
-            <motion.div
+            <div
               key={`star-${i}`}
-              className="absolute rounded-full bg-white shadow-lg"
-              initial={{
-                width: Math.random() * 2 + 1,
-                height: Math.random() * 2 + 1,
-                x:
-                  Math.random() *
-                  (typeof window !== "undefined" ? window.innerWidth : 1200),
-                y:
-                  Math.random() *
-                  (typeof window !== "undefined" ? window.innerHeight : 800),
-                opacity: 0.4 + Math.random() * 0.6,
-              }}
-              animate={{
-                opacity: [0.4, 1, 0.4],
-                scale: [0.8, 1.4, 0.8],
-                boxShadow: [
-                  "0 0 6px rgba(255,255,255,0.6), 0 0 12px rgba(147, 51, 234, 0.3)",
-                  "0 0 15px rgba(255,255,255,1), 0 0 25px rgba(147, 51, 234, 0.5)",
-                  "0 0 6px rgba(255,255,255,0.6), 0 0 12px rgba(147, 51, 234, 0.3)",
-                ],
-              }}
-              transition={{
-                duration: 3 + Math.random() * 3,
-                repeat: Infinity,
-                delay: Math.random() * 4,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-
-          {/* Occasional Shooting Star */}
-          {Array.from({ length: 1 }).map((_, i) => (
-            <motion.div
-              key={`shooting-${i}`}
-              className="absolute w-1 h-1 bg-white rounded-full"
-              initial={{
-                x:
-                  Math.random() *
-                  (typeof window !== "undefined"
-                    ? window.innerWidth * 0.3
-                    : 400),
-                y:
-                  Math.random() *
-                  (typeof window !== "undefined"
-                    ? window.innerHeight * 0.3
-                    : 300),
-                opacity: 0,
-                scaleX: 0,
-              }}
-              animate={{
-                x:
-                  (typeof window !== "undefined" ? window.innerWidth : 1200) +
-                  200,
-                y:
-                  (typeof window !== "undefined" ? window.innerHeight : 800) +
-                  200,
-                opacity: [0, 1, 0],
-                scaleX: [0, 20, 0],
-              }}
-              transition={{
-                duration: 1.2,
-                repeat: Infinity,
-                delay: 15 + i * 20,
-                ease: "easeOut",
-              }}
+              className="absolute rounded-full bg-white/60 w-1 h-1 star-twinkle"
               style={{
-                background:
-                  "linear-gradient(90deg, transparent, rgba(255,255,255,0.9), rgba(147, 51, 234, 0.5), transparent)",
-                transformOrigin: "left center",
-                filter: "blur(0.5px)",
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
               }}
             />
           ))}
@@ -207,11 +103,6 @@ export function Hero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="w-full lg:w-3/5 space-y-4 sm:space-y-6 text-center lg:text-left"
-          style={{
-            transform: `translate(${calculateMovement(-0.5).x}px, ${
-              calculateMovement(-0.5).y
-            }px)`,
-          }}
         >
           {/* Greeting with Glow Effect */}
           <motion.div
@@ -276,17 +167,21 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 1.2 }}
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start items-center mt-6 sm:mt-8"
           >
-            <motion.button
+            <button
               onClick={scrollToProjects}
-              className="relative w-full sm:w-auto px-6 sm:px-8 py-3.5 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 group overflow-hidden animate-glow mobile-cta-button"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
+              className="relative w-full sm:w-auto px-6 sm:px-8 py-3.5 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 group mobile-cta-button hover:scale-105"
             >
               <span className="relative z-10">View My Work</span>
               <ArrowDown className="h-4 w-4 group-hover:translate-y-1 transition-transform relative z-10" />
-              <div className="absolute inset-0 bg-shimmer-gradient bg-[length:200%_100%] animate-shimmer" />
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-white transition-opacity duration-300" />
-            </motion.button>
+            </button>
+
+            <a
+              href="mailto:tiranchanukaw@gmail.com"
+              className="relative w-full sm:w-auto px-6 sm:px-8 py-3.5 border border-white/20 text-white rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm bg-white/5 hover:bg-gradient-to-r hover:from-emerald-600 hover:to-cyan-600 hover:border-transparent group mobile-cta-button hover:scale-105"
+            >
+              <span className="relative z-10">Freelance</span>
+              <Mail className="h-4 w-4 group-hover:rotate-12 transition-transform relative z-10" />
+            </a>
 
             {/* <motion.button
               className="px-8 py-3 border border-foreground/20 text-foreground rounded-lg font-medium transition-all duration-300 flex items-center gap-2 backdrop-blur-sm bg-background/10 hover:bg-purple-500/10 shadow-lg shadow-purple-500/5"
@@ -329,323 +224,51 @@ export function Hero() {
                 color: "from-purple-500 to-purple-700",
               },
             ].map(({ icon: Icon, href, label, color }) => (
-              <motion.a
+              <a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`relative p-2 sm:p-3 rounded-full backdrop-blur-sm border border-white/10 shadow-lg bg-gradient-to-br ${color} group overflow-hidden mobile-social-button`}
+                className={`relative p-2 sm:p-3 rounded-full backdrop-blur-sm border border-white/10 shadow-lg bg-gradient-to-br ${color} group overflow-hidden mobile-social-button hover:scale-105 transition-transform duration-200`}
                 aria-label={label}
-                whileHover={{
-                  scale: 1.15,
-                  y: -4,
-                  boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
-                }}
-                whileTap={{ scale: 0.95 }}
               >
-                <div className="absolute inset-0 bg-shimmer-gradient bg-[length:200%_100%] animate-shimmer opacity-30" />
                 <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-white relative z-10" />
                 <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-xs text-white whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:-bottom-6 transition-all duration-300">
                   {label}
                 </span>
-              </motion.a>
+              </a>
             ))}
           </motion.div>
         </motion.div>
 
-        {/* Profile Image Section with Enhanced Effects */}
+        {/* Profile Image Section - Clean & Performance Optimized */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="w-full lg:w-2/5 flex justify-center order-first lg:order-last"
-          style={{
-            transform: `translate(${calculateMovement(0.8).x}px, ${
-              calculateMovement(0.8).y
-            }px)`,
-          }}
         >
           <div className="relative">
-            {/* Dynamic Background Effect */}
-            <motion.div
-              className="absolute -inset-4 rounded-full opacity-50 blur-2xl"
-              animate={{
-                background: [
-                  "radial-gradient(circle, rgba(124,58,237,0.5) 0%, rgba(45,212,191,0.2) 100%)",
-                  "radial-gradient(circle, rgba(45,212,191,0.5) 0%, rgba(124,58,237,0.2) 100%)",
-                  "radial-gradient(circle, rgba(124,58,237,0.5) 0%, rgba(45,212,191,0.2) 100%)",
-                ],
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-            />
-            {/* Image container with enhanced borders and effects */}
+            {/* Static Background Effect */}
+            <div className="absolute -inset-4 rounded-full opacity-20 blur-xl bg-gradient-to-r from-purple-500/30 to-cyan-500/30" />
+
+            {/* Clean Image Container */}
             <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden backdrop-blur-sm shadow-2xl shadow-purple-500/20 mobile-profile-small">
-              {/* Outer Glow */}
-              <div className="absolute -inset-px bg-gradient-to-r from-purple-500 to-blue-500 rounded-full animate-pulse-slow" />
+              {/* Static Border */}
+              <div className="absolute -inset-px bg-gradient-to-r from-purple-500 to-blue-500 rounded-full" />
 
-              {/* Rotating gradient border */}
-              <div className="absolute inset-0.5 bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-400 rounded-full animate-spin-slow" />
-
-              {/* Inner padding with improved background */}
+              {/* Profile Image Container */}
               <div className="absolute inset-2 bg-background rounded-full overflow-hidden">
-                {/* Profile Image with subtle filters */}
-                <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-blue-900/20 mix-blend-overlay z-10" />
                 <Image
                   src="/Profile.png"
                   alt="Tiran Chanuka"
                   fill
-                  sizes="(max-width: 768px) 16rem, 20rem"
-                  className="object-cover brightness-105 contrast-105"
+                  sizes="(max-width: 768px) 12rem, (max-width: 1024px) 16rem, 20rem"
+                  className="object-cover"
                   priority
+                  loading="eager"
                 />
               </div>
-            </div>{" "}
-            {/* Enhanced Floating Tech Badges with Professional UI/UX Placement */}{" "}
-            <div className="tech-badge-container">
-              {[
-                // Right arc badges (40° to 140° on the right side)
-                {
-                  src: "/Icons/React.png",
-                  alt: "React",
-                  color: "from-cyan-500 to-blue-600",
-                  borderColor: "border-cyan-300/40",
-                  shadowColor: "rgba(6, 182, 212, 0.65)",
-                  position: {
-                    top: "0%",
-                    right: "0%",
-                    left: "auto",
-                    bottom: "auto",
-                  },
-                  orbit: { degree: 40, distance: 120 },
-                  delay: 0.2,
-                  duration: 8,
-                  size: 32,
-                },
-                {
-                  src: "/Icons/JavaScript.png",
-                  alt: "JavaScript",
-                  color: "from-yellow-400 to-amber-500",
-                  borderColor: "border-yellow-300/30",
-                  shadowColor: "rgba(245, 158, 11, 0.6)",
-                  position: {
-                    top: "auto",
-                    right: "-10%",
-                    bottom: "25%",
-                    left: "auto",
-                  },
-                  orbit: { degree: 100, distance: 125 },
-                  delay: 0.9,
-                  duration: 9,
-                  size: 30,
-                },
-
-                // Left arc badges (220° to 320° on the left side)
-                {
-                  src: "/Icons/TypeScript.png",
-                  alt: "TypeScript",
-                  color: "from-blue-500 to-indigo-600",
-                  borderColor: "border-blue-300/30",
-                  shadowColor: "rgba(37, 99, 235, 0.6)",
-                  position: {
-                    bottom: "25%",
-                    right: "auto",
-                    top: "auto",
-                    left: "-10%",
-                  },
-                  orbit: { degree: 260, distance: 125 },
-                  delay: 0.6,
-                  duration: 8.5,
-                  size: 30,
-                },
-                {
-                  src: "/Icons/Nextjs.png",
-                  alt: "Next.js",
-                  color: "from-gray-700 to-black",
-                  borderColor: "border-gray-400/30",
-                  shadowColor: "rgba(75, 85, 99, 0.6)",
-                  position: {
-                    top: "0%",
-                    left: "0%",
-                    right: "auto",
-                    bottom: "auto",
-                  },
-                  orbit: { degree: 320, distance: 120 },
-                  delay: 0,
-                  duration: 9.5,
-                  size: 32,
-                },
-
-                // Bottom badges (160° and 200°)
-                {
-                  src: "/Icons/Tailwind.png",
-                  alt: "Tailwind CSS",
-                  color: "from-purple-600 to-violet-700",
-                  borderColor: "border-purple-300/40",
-                  shadowColor: "rgba(124, 58, 237, 0.7)",
-                  position: {
-                    bottom: "-5%",
-                    left: "30%",
-                    top: "auto",
-                    right: "auto",
-                  },
-                  orbit: { degree: 200, distance: 115 },
-                  delay: 0.4,
-                  duration: 7.5,
-                  size: 30,
-                },
-                {
-                  src: "/Icons/Wordpress.png",
-                  alt: "WordPress",
-                  color: "from-blue-600 to-blue-800",
-                  borderColor: "border-blue-300/30",
-                  shadowColor: "rgba(14, 165, 233, 0.6)",
-                  position: {
-                    bottom: "-5%",
-                    right: "30%",
-                    top: "auto",
-                    left: "auto",
-                  },
-                  orbit: { degree: 160, distance: 115 },
-                  delay: 0.7,
-                  duration: 8,
-                  size: 30,
-                },
-              ].map((badge, index) => (
-                <motion.div
-                  key={index}
-                  className="absolute p-1.5 rounded-full shadow-lg"
-                  initial={{
-                    opacity: 0,
-                    scale: 0.5,
-                    rotate: Math.random() * 20 - 10,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    scale: [0.95, 1.05, 0.95],
-                    rotate: [
-                      Math.random() * 5 - 2.5,
-                      Math.random() * 10 - 5,
-                      Math.random() * 5 - 2.5,
-                    ],
-                    boxShadow: [
-                      `0 0 10px 2px ${badge.shadowColor}`,
-                      `0 0 20px 4px ${badge.shadowColor}`,
-                      `0 0 10px 2px ${badge.shadowColor}`,
-                    ],
-                  }}
-                  // Orbit animation using custom orbital positioning
-                  style={{
-                    top: badge.position.top,
-                    right: badge.position.right,
-                    bottom: badge.position.bottom,
-                    left: badge.position.left,
-                    zIndex: 30,
-                  }}
-                  transition={{
-                    opacity: { duration: 0.7 },
-                    scale: {
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    },
-                    rotate: {
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    },
-                    boxShadow: {
-                      duration: 2.5,
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                    },
-                  }}
-                >
-                  {/* Badge with enhanced orbit animation */}
-                  <motion.div
-                    className={`bg-gradient-to-br ${badge.color} p-2.5 rounded-full backdrop-blur-md border ${badge.borderColor} overflow-hidden relative`}
-                    animate={{
-                      translateX: [
-                        0,
-                        Math.cos((badge.orbit.degree * Math.PI) / 180) * 12,
-                        0,
-                        Math.cos(((badge.orbit.degree + 180) * Math.PI) / 180) *
-                          12,
-                        0,
-                      ],
-                      translateY: [
-                        0,
-                        Math.sin((badge.orbit.degree * Math.PI) / 180) * 12,
-                        0,
-                        Math.sin(((badge.orbit.degree + 180) * Math.PI) / 180) *
-                          12,
-                        0,
-                      ],
-                    }}
-                    transition={{
-                      duration: badge.duration,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: badge.delay,
-                    }}
-                    whileHover={{
-                      scale: 1.25,
-                      rotate: 15,
-                      boxShadow: `0 0 25px 8px ${badge.shadowColor}`,
-                      zIndex: 50,
-                    }}
-                  >
-                    {/* Enhanced pulsing background for emphasis */}
-                    <motion.div
-                      className="absolute inset-0 rounded-full opacity-50"
-                      animate={{
-                        boxShadow: [
-                          `inset 0 0 8px 3px ${badge.shadowColor}`,
-                          `inset 0 0 15px 5px ${badge.shadowColor}`,
-                          `inset 0 0 8px 3px ${badge.shadowColor}`,
-                        ],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                        delay: badge.delay + 0.5,
-                      }}
-                    />
-
-                    {/* Enhanced animated glow effect inside badge */}
-                    <div className="absolute inset-0 opacity-60">
-                      <div className="absolute w-full h-full top-0 left-0 bg-gradient-to-r from-white/0 via-white/80 to-white/0 animate-shine-fast" />
-                    </div>
-
-                    {/* Rotating inner highlight */}
-                    <motion.div
-                      className="absolute inset-0 rounded-full opacity-30"
-                      animate={{ rotate: [0, 360] }}
-                      transition={{
-                        duration: 15,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      style={{
-                        background:
-                          "linear-gradient(90deg, transparent 50%, rgba(255,255,255,0.15) 60%, transparent 70%)",
-                      }}
-                    />
-
-                    <Image
-                      src={badge.src}
-                      alt={badge.alt}
-                      width={badge.size}
-                      height={badge.size}
-                      className="relative z-10"
-                    />
-                  </motion.div>
-                </motion.div>
-              ))}
             </div>
           </div>
         </motion.div>
@@ -667,11 +290,8 @@ export function Hero() {
           <span className="text-xs font-medium bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
             Scroll to explore
           </span>
-          <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/30 to-blue-500/30 rounded-full blur-md animate-pulse" />
-            <div className="relative bg-background/20 backdrop-blur-sm border border-white/10 p-2 rounded-full">
-              <ArrowDown className="h-4 w-4 text-white animate-bounce-gentle" />
-            </div>
+          <div className="bg-background/20 backdrop-blur-sm border border-white/10 p-2 rounded-full">
+            <ArrowDown className="h-4 w-4 text-white" />
           </div>
         </motion.div>
       </motion.div>
