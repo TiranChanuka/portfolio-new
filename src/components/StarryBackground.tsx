@@ -43,17 +43,17 @@ export function StarryBackground() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Initialize minimal elegant stars
+    // Initialize fewer colorful stars for better performance
     const initStars = () => {
       starsRef.current = [];
-      const starCount = Math.floor((canvas.width * canvas.height) / 8000); // Much fewer stars
+      const starCount = Math.floor((canvas.width * canvas.height) / 10000); // Significantly reduced stars
 
       const colors = [
         "#ffffff", // Pure white
-        "#f8fafc", // Very light gray
-        "#e2e8f0", // Light gray
-        "#cbd5e1", // Gray blue
-        "#94a3b8", // Blue gray
+        "#93c5fd", // Blue-300
+        "#c4b5fd", // Purple-300
+        "#67e8f9", // Cyan-300
+        "#f9a8d4", // Pink-300
       ];
 
       for (let i = 0; i < starCount; i++) {
@@ -61,56 +61,15 @@ export function StarryBackground() {
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           size: Math.random() * 1.5 + 0.5, // Smaller stars
-          opacity: Math.random() * 0.6 + 0.4,
-          twinkleSpeed: Math.random() * 0.015 + 0.002, // Very slow twinkling
+          opacity: Math.random() * 0.6 + 0.3,
+          twinkleSpeed: Math.random() * 0.015 + 0.005, // Slower twinkling
           color: colors[Math.floor(Math.random() * colors.length)],
           velocity: {
-            x: (Math.random() - 0.5) * 0.03, // Very slow movement
-            y: (Math.random() - 0.5) * 0.03,
+            x: (Math.random() - 0.5) * 0.02, // Much slower movement
+            y: (Math.random() - 0.5) * 0.02,
           },
         });
       }
-    };
-
-    // Create shooting star
-    const createShootingStar = () => {
-      const side = Math.floor(Math.random() * 4);
-      let x, y, angle;
-
-      switch (side) {
-        case 0: // Top
-          x = Math.random() * canvas.width;
-          y = -50;
-          angle = Math.random() * (Math.PI / 3) + Math.PI / 6;
-          break;
-        case 1: // Right
-          x = canvas.width + 50;
-          y = Math.random() * canvas.height;
-          angle = Math.random() * (Math.PI / 3) + (2 * Math.PI) / 3;
-          break;
-        case 2: // Bottom
-          x = Math.random() * canvas.width;
-          y = canvas.height + 50;
-          angle = Math.random() * (Math.PI / 3) + (7 * Math.PI) / 6;
-          break;
-        default: // Left
-          x = -50;
-          y = Math.random() * canvas.height;
-          angle = Math.random() * (Math.PI / 3) - Math.PI / 6;
-          break;
-      }
-
-      const maxLife = 60 + Math.random() * 40;
-      shootingStarsRef.current.push({
-        x,
-        y,
-        length: 40 + Math.random() * 60,
-        speed: 3 + Math.random() * 4,
-        angle,
-        opacity: 1,
-        life: maxLife,
-        maxLife,
-      });
     };
 
     // Set canvas size
@@ -125,10 +84,8 @@ export function StarryBackground() {
 
     // Enhanced animation loop
     let time = 0;
-    let shootingStarTimer = 0;
     const animate = () => {
       time += 0.01;
-      shootingStarTimer++;
 
       // Clear canvas with pure dark space gradient
       const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
@@ -140,56 +97,7 @@ export function StarryBackground() {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Create shooting stars very rarely
-      if (shootingStarTimer > 600 + Math.random() * 1200) {
-        // Much less frequent
-        createShootingStar();
-        shootingStarTimer = 0;
-      }
-
-      // Draw and update shooting stars
-      shootingStarsRef.current = shootingStarsRef.current.filter((star) => {
-        star.life--;
-        star.opacity = star.life / star.maxLife;
-
-        star.x += Math.cos(star.angle) * star.speed;
-        star.y += Math.sin(star.angle) * star.speed;
-
-        if (star.life > 0) {
-          // Draw shooting star trail
-          const gradient = ctx.createLinearGradient(
-            star.x,
-            star.y,
-            star.x - Math.cos(star.angle) * star.length,
-            star.y - Math.sin(star.angle) * star.length
-          );
-          gradient.addColorStop(0, `rgba(255, 255, 255, ${star.opacity})`);
-          gradient.addColorStop(
-            0.5,
-            `rgba(200, 200, 255, ${star.opacity * 0.8})`
-          );
-          gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
-
-          ctx.strokeStyle = gradient;
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          ctx.moveTo(star.x, star.y);
-          ctx.lineTo(
-            star.x - Math.cos(star.angle) * star.length,
-            star.y - Math.sin(star.angle) * star.length
-          );
-          ctx.stroke();
-
-          // Draw bright head
-          ctx.beginPath();
-          ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-          ctx.arc(star.x, star.y, 2, 0, Math.PI * 2);
-          ctx.fill();
-
-          return true;
-        }
-        return false;
-      });
+      // No shooting stars - removed for cleaner look
 
       // Draw regular stars
       starsRef.current.forEach((star, index) => {
@@ -206,46 +114,51 @@ export function StarryBackground() {
         const twinkle = Math.sin(time * star.twinkleSpeed + index) * 0.5 + 0.5;
         const currentOpacity = star.opacity * twinkle;
 
-        // Main star
+        // Enhanced colorful glow effect for all stars
+        const gradient = ctx.createRadialGradient(
+          star.x,
+          star.y,
+          0,
+          star.x,
+          star.y,
+          star.size * 6
+        );
+        gradient.addColorStop(0, star.color);
+        gradient.addColorStop(0.3, `${star.color}88`); // 50% opacity
+        gradient.addColorStop(1, "transparent");
+
+        ctx.beginPath();
+        ctx.fillStyle = gradient;
+        ctx.globalAlpha = currentOpacity * 0.6;
+        ctx.arc(star.x, star.y, star.size * 6, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Main star with enhanced glow
         ctx.beginPath();
         ctx.fillStyle = star.color;
         ctx.globalAlpha = currentOpacity;
+        ctx.shadowBlur = star.size * 8;
+        ctx.shadowColor = star.color;
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
         ctx.fill();
+        ctx.shadowBlur = 0; // Reset shadow
 
-        // Enhanced glow effect for larger stars
-        if (star.size > 2) {
-          const gradient = ctx.createRadialGradient(
-            star.x,
-            star.y,
-            0,
-            star.x,
-            star.y,
-            star.size * 5
-          );
-          gradient.addColorStop(0, star.color);
-          gradient.addColorStop(1, "transparent");
-
-          ctx.beginPath();
-          ctx.fillStyle = gradient;
-          ctx.globalAlpha = currentOpacity * 0.4;
-          ctx.arc(star.x, star.y, star.size * 5, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        // Cross sparkle for brightest stars
-        if (star.size > 2.5 && currentOpacity > 0.8) {
+        // Cross sparkle for larger stars
+        if (star.size > 1.5 && currentOpacity > 0.7) {
           ctx.strokeStyle = star.color;
-          ctx.globalAlpha = currentOpacity * 0.7;
-          ctx.lineWidth = 1.5;
+          ctx.globalAlpha = currentOpacity * 0.8;
+          ctx.lineWidth = 1;
+          ctx.shadowBlur = 4;
+          ctx.shadowColor = star.color;
           ctx.beginPath();
           // Horizontal line
-          ctx.moveTo(star.x - star.size * 4, star.y);
-          ctx.lineTo(star.x + star.size * 4, star.y);
+          ctx.moveTo(star.x - star.size * 3, star.y);
+          ctx.lineTo(star.x + star.size * 3, star.y);
           // Vertical line
-          ctx.moveTo(star.x, star.y - star.size * 4);
-          ctx.lineTo(star.x, star.y + star.size * 4);
+          ctx.moveTo(star.x, star.y - star.size * 3);
+          ctx.lineTo(star.x, star.y + star.size * 3);
           ctx.stroke();
+          ctx.shadowBlur = 0; // Reset shadow
         }
       });
 
