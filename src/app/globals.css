@@ -35,6 +35,73 @@ body {
   animation: twinkle 2s infinite ease-in-out;
 }
 
+/* Solar System Animations */
+@keyframes solar-orbit {
+  0% {
+    transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg);
+  }
+}
+
+@keyframes stellar-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 20px currentColor, 0 0 40px currentColor,
+      0 0 60px currentColor;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 30px currentColor, 0 0 60px currentColor,
+      0 0 90px currentColor;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes cosmic-glow {
+  0%,
+  100% {
+    filter: brightness(1) blur(0px);
+  }
+  50% {
+    filter: brightness(1.2) blur(1px);
+  }
+}
+
+@keyframes nebula-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translate(-10px, -15px) scale(1.1);
+    opacity: 0.5;
+  }
+  66% {
+    transform: translate(15px, -10px) scale(0.9);
+    opacity: 0.4;
+  }
+}
+
+.animate-stellar-pulse {
+  animation: stellar-pulse 4s ease-in-out infinite;
+}
+
+.animate-cosmic-glow {
+  animation: cosmic-glow 6s ease-in-out infinite;
+}
+
+.animate-nebula-drift {
+  animation: nebula-drift 20s ease-in-out infinite;
+}
+
+/* Galaxy background gradient */
+.bg-gradient-radial {
+  background: radial-gradient(var(--tw-gradient-stops));
+}
+
 /* Keep essential animations only */
 @keyframes gentle-float {
   0%,
@@ -80,14 +147,54 @@ body {
   animation: float-up-down 4s ease-in-out infinite;
 }
 
-/* Enhanced orbital animations */
-@keyframes orbit {
+/* Enhanced orbital animations for smoother movement */
+@keyframes orbital-dance {
   0% {
-    transform: rotate(0deg) translateX(120px) rotate(0deg);
+    transform: rotate(0deg) translateX(var(--radius)) rotate(0deg);
   }
   100% {
-    transform: rotate(360deg) translateX(120px) rotate(-360deg);
+    transform: rotate(360deg) translateX(var(--radius)) rotate(-360deg);
   }
+}
+
+@keyframes cosmic-float {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px) scale(1.1);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-15px) scale(0.9);
+  }
+  75% {
+    transform: translateY(-30px) translateX(5px) scale(1.05);
+  }
+}
+
+@keyframes galaxy-rotation {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.animate-cosmic-float {
+  animation: cosmic-float 15s ease-in-out infinite;
+}
+
+.animate-galaxy-rotation {
+  animation: galaxy-rotation 60s linear infinite;
+}
+
+.animate-orbital-dance {
+  animation: orbital-dance var(--duration) linear infinite;
 }
 
 /* Subtle floating effect for badges */

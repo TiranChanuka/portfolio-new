@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import { StarryBackground } from "./StarryBackground";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState, useRef } from "react";
 import Image from "next/image";
 
 // Animated typing effect for subtitle
@@ -26,8 +26,66 @@ const letterVariants = {
   },
 };
 
+// Solar System Planet Component
+const Planet = ({
+  size,
+  color,
+  orbitRadius,
+  duration,
+  delay = 0,
+  className = "",
+}: {
+  size: number;
+  color: string;
+  orbitRadius: number;
+  duration: number;
+  delay?: number;
+  className?: string;
+}) => {
+  return (
+    <motion.div
+      className={`absolute inset-0 ${className}`}
+      animate={{ rotate: 360 }}
+      transition={{
+        duration,
+        repeat: Infinity,
+        ease: "linear",
+        delay,
+      }}
+    >
+      <div
+        className={`absolute rounded-full ${color} shadow-lg`}
+        style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          top: "50%",
+          left: "50%",
+          transform: `translate(-50%, -50%) translateX(${orbitRadius}px)`,
+          boxShadow: `0 0 ${size / 2}px ${
+            color.includes("blue")
+              ? "#3b82f6"
+              : color.includes("purple")
+              ? "#8b5cf6"
+              : color.includes("pink")
+              ? "#ec4899"
+              : "#10b981"
+          }`,
+        }}
+      />
+    </motion.div>
+  );
+};
+
 export function Hero() {
-  // Mouse position tracking disabled for performance
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0.3]);
+
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -47,92 +105,187 @@ export function Hero() {
   const subtitle = "Frontend & WordPress Developer";
 
   return (
-    <section
+    <motion.section
+      ref={containerRef}
       id="home"
-      className="relative h-auto flex items-center justify-center overflow-hidden bg-black hero-mobile mobile-touch-optimized hero-content-spacing"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      style={{ opacity }}
     >
-      {/* Starry Background with Parallax Effect */}
-      <Suspense fallback={<div className="absolute inset-0 bg-black" />}>
-        <div className="absolute inset-0">
+      {/* Enhanced Galaxy Background */}
+      <div className="absolute inset-0">
+        {/* Base galaxy gradient */}
+        <div className="absolute inset-0 bg-gradient-radial from-purple-900/20 via-black to-black" />
+
+        {/* Starry Background */}
+        <Suspense fallback={<div className="absolute inset-0 bg-black" />}>
           <StarryBackground />
+        </Suspense>
+
+        {/* Galaxy center glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-radial from-purple-500/10 via-blue-500/5 to-transparent rounded-full blur-3xl" />
+
+        {/* Nebula effects */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-gradient-radial from-cyan-400/10 via-transparent to-transparent rounded-full blur-2xl animate-pulse" />
+          <div
+            className="absolute bottom-1/3 left-1/3 w-80 h-80 bg-gradient-radial from-pink-400/8 via-transparent to-transparent rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: "2s" }}
+          />
         </div>
-      </Suspense>
 
-      {/* Simplified Dark Space Background */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-black via-gray-900/50 to-black z-5"
-        animate={{
-          backgroundPosition: ["0% 0%", "100% 100%"],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-      />
+        {/* Animated Solar System */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:block"
+          style={{ y }}
+        >
+          {/* Central Sun */}
+          <motion.div
+            className="absolute w-6 h-6 md:w-8 md:h-8 bg-gradient-radial from-yellow-400 via-orange-500 to-red-500 rounded-full"
+            style={{
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              boxShadow: "0 0 20px #fbbf24, 0 0 40px #f59e0b, 0 0 60px #d97706",
+            }}
+            animate={{
+              scale: [1, 1.15, 1],
+              boxShadow: [
+                "0 0 20px #fbbf24, 0 0 40px #f59e0b, 0 0 60px #d97706",
+                "0 0 30px #fbbf24, 0 0 60px #f59e0b, 0 0 90px #d97706",
+                "0 0 20px #fbbf24, 0 0 40px #f59e0b, 0 0 60px #d97706",
+              ],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
 
-      {/* Deep Space Base Layer */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/95 via-blue-950/20 to-black/95 z-6" />
+          {/* Orbiting Planets */}
+          <Planet
+            size={8}
+            color="bg-blue-500"
+            orbitRadius={60}
+            duration={12}
+            delay={0}
+          />
+          <Planet
+            size={6}
+            color="bg-red-500"
+            orbitRadius={90}
+            duration={20}
+            delay={2}
+          />
+          <Planet
+            size={7}
+            color="bg-green-500"
+            orbitRadius={120}
+            duration={28}
+            delay={4}
+          />
+          <Planet
+            size={5}
+            color="bg-purple-500"
+            orbitRadius={150}
+            duration={36}
+            delay={6}
+          />
+          <Planet
+            size={9}
+            color="bg-yellow-500"
+            orbitRadius={180}
+            duration={48}
+            delay={8}
+          />
 
-      {/* Subtle Purple Glow */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-950/10 via-transparent to-purple-950/10 z-7" />
-
-      {/* Simplified Stars for Performance */}
-      {loaded && (
-        <div className="absolute inset-0 z-10 overflow-hidden">
-          {/* Simple Static Stars */}
-          {Array.from({ length: 12 }).map((_, i) => (
+          {/* Orbit rings */}
+          {[60, 90, 120, 150, 180].map((radius, index) => (
             <div
-              key={`star-${i}`}
-              className="absolute rounded-full bg-white/60 w-1 h-1 star-twinkle"
+              key={radius}
+              className="absolute rounded-full border border-white/5"
+              style={{
+                width: `${radius * 2}px`,
+                height: `${radius * 2}px`,
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            />
+          ))}
+        </motion.div>
+
+        {/* Mobile-friendly cosmic elements */}
+        <div className="absolute inset-0 lg:hidden">
+          {/* Floating cosmic particles for mobile */}
+          {Array.from({ length: 20 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className={`absolute rounded-full ${
+                i % 3 === 0
+                  ? "w-2 h-2 bg-blue-400/30"
+                  : i % 3 === 1
+                  ? "w-1.5 h-1.5 bg-purple-400/30"
+                  : "w-1 h-1 bg-cyan-400/30"
+              }`}
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
+              }}
+              animate={{
+                y: [0, -20, 0],
+                x: [0, 10, -10, 0],
+                opacity: [0.3, 0.8, 0.3],
+              }}
+              transition={{
+                duration: 8 + Math.random() * 4,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+                ease: "easeInOut",
               }}
             />
           ))}
         </div>
-      )}
+      </div>
 
-      {/* Content */}
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 lg:gap-12 min-h-screen lg:py-0  lg:pt-0">
-        {/* Text Content with Enhanced Animations */}
+      {/* Content Container */}
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 lg:gap-12 min-h-screen">
+        {/* Text Content */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
+          initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full lg:w-3/5 space-y-4 sm:space-y-6 text-center lg:text-left"
+          transition={{ duration: 1, delay: 0.5 }}
+          className="w-full lg:w-3/5 space-y-6 text-center lg:text-left"
         >
-          {/* Greeting with Glow Effect */}
+          {/* Greeting */}
           <motion.div
             className="relative inline-block"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
           >
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/40 to-purple-600/40 rounded-full blur-xl opacity-30" />
-            <p className="relative text-sm sm:text-base md:text-lg text-foreground/80 font-medium py-1 px-3 sm:px-4 rounded-full bg-gradient-to-r from-background/40 to-background/20 backdrop-blur-sm border border-white/10">
+            <div className="absolute -inset-2 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-full blur-xl" />
+            <p className="relative text-lg text-white/90 font-medium py-2 px-6 rounded-full bg-gradient-to-r from-black/40 to-black/20 backdrop-blur-sm border border-white/10">
               Hello, I'm
             </p>
           </motion.div>
 
-          {/* Name with Enhanced Gradient */}
+          {/* Name with stellar gradient */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent drop-shadow-lg"
+            transition={{ duration: 1, delay: 0.9 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent drop-shadow-2xl"
           >
             Tiran Chanuka
           </motion.h1>
 
-          {/* Title with Typing Effect */}
-          <motion.h2
+          {/* Subtitle with typing effect */}
+          <motion.div
             variants={typingVariants}
             initial="hidden"
             animate="visible"
-            className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold text-foreground/90 overflow-hidden"
+            className="text-xl sm:text-2xl md:text-3xl font-semibold text-white/80"
           >
             {subtitle.split("").map((char, i) => (
               <motion.span
@@ -143,158 +296,230 @@ export function Hero() {
                 {char === " " ? "\u00A0" : char}
               </motion.span>
             ))}
-          </motion.h2>
+          </motion.div>
 
-          {/* Description with Improved Typography */}
+          {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="text-sm sm:text-base md:text-lg max-w-xl lg:max-w-2xl leading-relaxed text-center lg:text-left"
+            transition={{ duration: 0.8, delay: 1.4 }}
+            className="text-base sm:text-lg max-w-2xl leading-relaxed text-white/70"
           >
-            I'm an experienced Frontend Developer, WordPress developer, and
-            UI/UX Designer, with over three years of expertise in building
-            responsive, visually engaging, and user-friendly websites. My core
-            focus is on WordPress development—including custom plugin
-            development—and modern frontend technologies such as React, Next.js,
-            and Tailwind CSS.
+            Crafting digital experiences across the cosmos. Specialized in
+            React, Next.js, WordPress, and creating stellar user interfaces that
+            shine in the digital galaxy.
           </motion.p>
 
-          {/* Enhanced CTA Buttons with Improved Effects */}
+          {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start items-center mt-6 sm:mt-8"
+            transition={{ duration: 0.8, delay: 1.6 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center pt-4"
           >
-            <button
+            <motion.button
               onClick={scrollToProjects}
-              className="relative w-full sm:w-auto px-6 sm:px-8 py-3.5 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 group mobile-cta-button hover:scale-105"
+              className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold transition-all duration-300 flex items-center gap-3 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <span className="relative z-10">View My Work</span>
-              <ArrowDown className="h-4 w-4 group-hover:translate-y-1 transition-transform relative z-10" />
-            </button>
+              <span>Explore My Universe</span>
+              <ArrowDown className="h-5 w-5 group-hover:translate-y-1 transition-transform" />
+            </motion.button>
 
-            <a
+            <motion.a
               href="mailto:tiranchanukaw@gmail.com"
-              className="relative w-full sm:w-auto px-6 sm:px-8 py-3.5 border border-white/20 text-white rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm bg-white/5 hover:bg-gradient-to-r hover:from-emerald-600 hover:to-cyan-600 hover:border-transparent group mobile-cta-button hover:scale-105"
+              className="group relative px-8 py-4 border border-white/20 text-white rounded-full font-semibold transition-all duration-300 flex items-center gap-3 backdrop-blur-sm bg-white/5 hover:bg-gradient-to-r hover:from-emerald-600 hover:to-cyan-600 hover:border-transparent hover:scale-105"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <span className="relative z-10">Freelance</span>
-              <Mail className="h-4 w-4 group-hover:rotate-12 transition-transform relative z-10" />
-            </a>
-
-            {/* <motion.button
-              className="px-8 py-3 border border-foreground/20 text-foreground rounded-lg font-medium transition-all duration-300 flex items-center gap-2 backdrop-blur-sm bg-background/10 hover:bg-purple-500/10 shadow-lg shadow-purple-500/5"
-              whileHover={{
-                scale: 1.05,
-                borderColor: "rgba(168, 85, 247, 0.5)",
-                boxShadow: "0 0 15px 2px rgba(168, 85, 247, 0.2)",
-              }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Download className="h-4 w-4" />
-              Download CV
-            </motion.button> */}
+              <span>Connect</span>
+              <Mail className="h-5 w-5 group-hover:rotate-12 transition-transform" />
+            </motion.a>
           </motion.div>
 
-          {/* Enhanced Social Links with Improved Visual Effects */}
+          {/* Social Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.4 }}
-            className="flex justify-center lg:justify-start gap-4 sm:gap-6 mt-6 sm:mt-8"
+            transition={{ duration: 0.8, delay: 1.8 }}
+            className="flex justify-center lg:justify-start gap-6 pt-6"
           >
             {[
               {
                 icon: Github,
                 href: "https://github.com/TiranChanuka",
                 label: "GitHub",
-                color: "from-gray-500 to-gray-700",
+                color: "from-gray-600 to-gray-800",
               },
               {
                 icon: Linkedin,
                 href: "https://www.linkedin.com/in/tiranchanuka/",
                 label: "LinkedIn",
-                color: "from-blue-500 to-blue-700",
+                color: "from-blue-600 to-blue-800",
               },
               {
                 icon: Mail,
                 href: "mailto:tiranchanukaw@gmail.com",
                 label: "Email",
-                color: "from-purple-500 to-purple-700",
+                color: "from-purple-600 to-purple-800",
               },
             ].map(({ icon: Icon, href, label, color }) => (
-              <a
+              <motion.a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`relative p-2 sm:p-3 rounded-full backdrop-blur-sm border border-white/10 shadow-lg bg-gradient-to-br ${color} group overflow-hidden mobile-social-button hover:scale-105 transition-transform duration-200`}
-                aria-label={label}
+                className={`p-3 rounded-full backdrop-blur-sm border border-white/10 bg-gradient-to-br ${color} group overflow-hidden hover:scale-110 transition-all duration-300 hover:shadow-lg`}
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-white relative z-10" />
-                <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-xs text-white whitespace-nowrap opacity-0 group-hover:opacity-100 group-hover:-bottom-6 transition-all duration-300">
-                  {label}
-                </span>
-              </a>
+                <Icon className="h-6 w-6 text-white" />
+              </motion.a>
             ))}
           </motion.div>
         </motion.div>
 
-        {/* Profile Image Section - Clean & Performance Optimized */}
+        {/* Profile Image with Planetary Ring Effect */}
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
+          initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 1, delay: 0.3 }}
           className="w-full lg:w-2/5 flex justify-center order-first lg:order-last"
         >
           <div className="relative">
-            {/* Static Background Effect */}
-            <div className="absolute -inset-4 rounded-full opacity-20 blur-xl bg-gradient-to-r from-purple-500/30 to-cyan-500/30" />
+            {/* Orbital rings around profile - Desktop only */}
+            {[240, 280, 320].map((size, index) => (
+              <motion.div
+                key={size}
+                className="absolute rounded-full border border-white/5 hidden md:block"
+                style={{
+                  width: `${size}px`,
+                  height: `${size}px`,
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                }}
+                animate={{ rotate: 360 }}
+                transition={{
+                  duration: 20 + index * 10,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              />
+            ))}
 
-            {/* Clean Image Container */}
-            <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden backdrop-blur-sm shadow-2xl shadow-purple-500/20 mobile-profile-small">
-              {/* Static Border */}
-              <div className="absolute -inset-px bg-gradient-to-r from-purple-500 to-blue-500 rounded-full" />
+            {/* Small orbiting elements - Desktop only */}
+            {[0, 120, 240].map((angle, index) => (
+              <motion.div
+                key={angle}
+                className="absolute w-2 h-2 md:w-3 md:h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full hidden md:block"
+                style={{
+                  top: "50%",
+                  left: "50%",
+                }}
+                animate={{
+                  rotate: 360,
+                }}
+                transition={{
+                  duration: 15,
+                  repeat: Infinity,
+                  ease: "linear",
+                  delay: index * 5,
+                }}
+              >
+                <div
+                  className="w-full h-full rounded-full"
+                  style={{
+                    transform: `translate(-50%, -50%) translateX(260px)`,
+                    boxShadow: "0 0 8px currentColor",
+                  }}
+                />
+              </motion.div>
+            ))}
 
-              {/* Profile Image Container */}
-              <div className="absolute inset-2 bg-background rounded-full overflow-hidden">
+            {/* Profile image with cosmic glow */}
+            <motion.div
+              className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              {/* Cosmic background glow */}
+              <div className="absolute -inset-6 md:-inset-8 bg-gradient-radial from-cyan-400/15 via-purple-500/8 to-transparent rounded-full blur-2xl" />
+
+              {/* Animated border ring */}
+              <motion.div
+                className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-full"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+              />
+
+              {/* Inner border for contrast */}
+              <div className="absolute -inset-0.5 bg-black rounded-full" />
+
+              {/* Image container */}
+              <div className="relative w-full h-full bg-gradient-to-br from-gray-900 to-black rounded-full overflow-hidden">
                 <Image
                   src="/Profile.png"
-                  alt="Tiran Chanuka"
+                  alt="Tiran Chanuka - Frontend & WordPress Developer"
                   fill
-                  sizes="(max-width: 768px) 12rem, (max-width: 1024px) 16rem, 20rem"
+                  sizes="(max-width: 640px) 12rem, (max-width: 768px) 14rem, (max-width: 1024px) 16rem, 18rem"
                   className="object-cover"
                   priority
-                  loading="eager"
                 />
+
+                {/* Subtle overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
               </div>
-            </div>
+
+              {/* Mobile-friendly cosmic particles around image */}
+              <div className="absolute inset-0 md:hidden">
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1 h-1 bg-white/40 rounded-full"
+                    style={{
+                      left: `${20 + Math.random() * 60}%`,
+                      top: `${20 + Math.random() * 60}%`,
+                    }}
+                    animate={{
+                      opacity: [0.2, 0.8, 0.2],
+                      scale: [0.8, 1.2, 0.8],
+                    }}
+                    transition={{
+                      duration: 3 + Math.random() * 2,
+                      repeat: Infinity,
+                      delay: Math.random() * 3,
+                    }}
+                  />
+                ))}
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
 
-      {/* Enhanced Scroll Indicator */}
+      {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 2 }}
-        className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-30"
+        transition={{ duration: 1, delay: 2.5 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2 cursor-pointer"
+          className="flex flex-col items-center gap-2 cursor-pointer group"
           onClick={scrollToProjects}
         >
-          <span className="text-xs font-medium bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
-            Scroll to explore
+          <span className="text-sm font-medium text-white/60 group-hover:text-white/80 transition-colors">
+            Discover More
           </span>
-          <div className="bg-background/20 backdrop-blur-sm border border-white/10 p-2 rounded-full">
-            <ArrowDown className="h-4 w-4 text-white" />
+          <div className="bg-white/10 backdrop-blur-sm border border-white/20 p-3 rounded-full group-hover:bg-white/20 transition-all">
+            <ArrowDown className="h-5 w-5 text-white" />
           </div>
         </motion.div>
       </motion.div>
-    </section>
+    </motion.section>
   );
 }
