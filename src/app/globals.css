@@ -97,9 +97,107 @@ body {
   animation: nebula-drift 20s ease-in-out infinite;
 }
 
-/* Galaxy background gradient */
-.bg-gradient-radial {
-  background: radial-gradient(var(--tw-gradient-stops));
+/* Solar System and Profile Sun Effects */
+@keyframes solar-rays {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translateX(-50%) rotate(var(--rotation)) scaleY(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateX(-50%) rotate(var(--rotation)) scaleY(1.2);
+  }
+}
+
+@keyframes solar-corona {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.8;
+  }
+  25% {
+    transform: scale(1.1) rotate(90deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 0.9;
+  }
+  75% {
+    transform: scale(1.1) rotate(270deg);
+    opacity: 1;
+  }
+}
+
+@keyframes solar-flare {
+  0%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  33% {
+    transform: scale(1.2);
+    opacity: 0.9;
+  }
+  66% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes skill-planet-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 15px currentColor, 0 0 30px currentColor,
+      0 0 45px currentColor;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes skill-planet-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-solar-rays {
+  animation: solar-rays 2s ease-in-out infinite;
+}
+
+.animate-solar-corona {
+  animation: solar-corona 8s linear infinite;
+}
+
+.animate-solar-flare {
+  animation: solar-flare 4s ease-in-out infinite;
+}
+
+.animate-skill-planet-glow {
+  animation: skill-planet-glow 3s ease-in-out infinite;
+}
+
+.animate-skill-planet-float {
+  animation: skill-planet-float 2s ease-in-out infinite;
+}
+
+/* Enhanced skill planet hover effects */
+.skill-planet:hover {
+  transform: scale(1.2) !important;
+  z-index: 10;
+}
+
+.skill-planet:hover .skill-tooltip {
+  opacity: 1;
+  transform: translateY(-8px);
 }
 
 /* Keep essential animations only */
