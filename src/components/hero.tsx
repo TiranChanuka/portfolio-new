@@ -445,7 +445,7 @@ export function Hero() {
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               {/* Enhanced cosmic background glow with pulsing animation */}
-              <motion.div 
+              <motion.div
                 className="absolute -inset-6 md:-inset-8 bg-gradient-radial from-cyan-400/20 via-blue-500/15 to-purple-500/10 rounded-full blur-2xl"
                 animate={{
                   scale: [1, 1.1, 1],
@@ -459,7 +459,7 @@ export function Hero() {
               />
 
               {/* Secondary glow layer for depth */}
-              <motion.div 
+              <motion.div
                 className="absolute -inset-4 md:-inset-6 bg-gradient-radial from-cyan-300/25 via-blue-400/15 to-transparent rounded-full blur-xl"
                 animate={{
                   scale: [1.1, 1, 1.1],
@@ -477,19 +477,24 @@ export function Hero() {
               <motion.div
                 className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-full"
                 style={{
-                  boxShadow: "0 0 20px rgba(34, 211, 238, 0.4), 0 0 40px rgba(59, 130, 246, 0.3), 0 0 60px rgba(147, 51, 234, 0.2)",
+                  boxShadow:
+                    "0 0 20px rgba(34, 211, 238, 0.4), 0 0 40px rgba(59, 130, 246, 0.3), 0 0 60px rgba(147, 51, 234, 0.2)",
                 }}
-                animate={{ 
+                animate={{
                   rotate: 360,
                   boxShadow: [
                     "0 0 20px rgba(34, 211, 238, 0.4), 0 0 40px rgba(59, 130, 246, 0.3), 0 0 60px rgba(147, 51, 234, 0.2)",
                     "0 0 30px rgba(34, 211, 238, 0.6), 0 0 60px rgba(59, 130, 246, 0.4), 0 0 80px rgba(147, 51, 234, 0.3)",
                     "0 0 20px rgba(34, 211, 238, 0.4), 0 0 40px rgba(59, 130, 246, 0.3), 0 0 60px rgba(147, 51, 234, 0.2)",
-                  ]
+                  ],
                 }}
-                transition={{ 
+                transition={{
                   rotate: { duration: 8, repeat: Infinity, ease: "linear" },
-                  boxShadow: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                  boxShadow: {
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
                 }}
               />
 
@@ -508,14 +513,14 @@ export function Hero() {
                 />
 
                 {/* Enhanced overlay with subtle cosmic glow */}
-                <motion.div 
+                <motion.div
                   className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"
                   animate={{
                     background: [
                       "linear-gradient(to top, rgba(0,0,0,0.2), transparent, transparent)",
                       "linear-gradient(to top, rgba(34,211,238,0.05), transparent, rgba(147,51,234,0.03))",
                       "linear-gradient(to top, rgba(0,0,0,0.2), transparent, transparent)",
-                    ]
+                    ],
                   }}
                   transition={{
                     duration: 6,
@@ -525,10 +530,12 @@ export function Hero() {
                 />
 
                 {/* Inner rim glow effect */}
-                <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-gradient-to-r ring-cyan-400/20" 
-                     style={{
-                       boxShadow: "inset 0 0 30px rgba(34, 211, 238, 0.1), inset 0 0 50px rgba(59, 130, 246, 0.05)"
-                     }} 
+                <div
+                  className="absolute inset-0 rounded-full ring-1 ring-inset ring-gradient-to-r ring-cyan-400/20"
+                  style={{
+                    boxShadow:
+                      "inset 0 0 30px rgba(34, 211, 238, 0.1), inset 0 0 50px rgba(59, 130, 246, 0.05)",
+                  }}
                 />
               </div>
 
